@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="data-management-wizard:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/data_management_wizard_war_exploded.war</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="data-management-wizard/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="data-management-wizard" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Vaadin Server" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
