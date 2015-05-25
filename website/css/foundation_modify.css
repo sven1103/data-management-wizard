@@ -152,7 +152,7 @@ select {
 
 .herotext{
   color: white;
-  font-size: 75pt;
+  font-size: 100pt;
 }
 
 .herotext-medium{
@@ -180,7 +180,7 @@ select {
 
 .header {
   position: absolute !important;
-  top: 20%;
+  top: 15%;
 }
 
 
@@ -194,6 +194,9 @@ select {
   height: 554px;
 }
 
+.roboto-font {
+  font-family: 'Roboto', sans-serif@important;
+}
 
 .element-animation{
   overflow: hidden;
