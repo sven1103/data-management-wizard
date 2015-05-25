@@ -178,14 +178,20 @@ select {
   font-size: 16pt;
 }
 
-.header-height {
-  height: 554px;
+.header {
+  position: absolute !important;
+  top: 20%;
 }
 
 
-.header-text {
-  position: relative;
-  top: 25%;
+.i-padding{
+  margin-top: 44px;
+  margin-bottom: 22px;
+}
+
+
+.header-height {
+  height: 554px;
 }
 
 
@@ -285,6 +291,10 @@ yellow {
   font-size: 40pt;
 }
 
+#main-content{
+  position: static;
+  margin: 44px 0 22px;
+}
 
 ghostbutton, .ghost-button {
   -webkit-appearance: none;
@@ -314,7 +324,7 @@ ghostbutton:hover, ghostbutton:focus, .ghost-button:hover, .ghost-button:focus {
 #footer{
   font-size: 10pt;
   height: 50px;
-  position: fixed;
+  position: absolute;
   bottom: 0px;
   left: 0px;
   line-height: 50px;
@@ -3928,7 +3938,7 @@ p {
 
 /* Default header styles */
 h1, h2, h3, h4, h5, h6 {
-  color: #222222;
+  color: #333333;
   font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   font-style: normal;
   font-weight: normal;

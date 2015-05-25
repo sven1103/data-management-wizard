@@ -4,38 +4,55 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Foundation | Welcome</title>
-    <link rel="stylesheet" href="css/foundation_modify.css" />
     <link href='http://fonts.googleapis.com/css?family=Yellowtail' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/foundation_modify.css" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
     <script src="js/vendor/modernizr.js"></script>
 </head>
 <body>
 
+<div data-magellan-expedition="fixed">
+    <dl class="sub-nav show-for-medium-up">
+        <dd data-magellan-arrival="build"><a href="#build">Home</a></dd>
+        <dd data-magellan-arrival="js"><a href="#js">Create DMP</a></dd>
+        <dd data-magellan-arrival="js"><a href="#js">What is DMPcreator?</a></dd>
+        <dd data-magellan-arrival="js"><a href="#js">Contact</a></dd>
+    </dl>
+    <dl class="sub-nav show-for-small-only">
+        <dd data-magellan-arrival="build"><a href="#build">Home</a></dd>
+        <dd data-magellan-arrival="js"><a href="#js">Create</a></dd>
+        <dd data-magellan-arrival="js"><a href="#js">About</a></dd>
+        <dd data-magellan-arrival="js"><a href="#js">Contact</a></dd>
+    </dl>
+</div>
 
-<div class="show-for-large-up header-height" style="position: absolute; overflow: hidden; padding:0;">
+
+<div class="show-for-xlarge-up header-height" style="position: relative; overflow: hidden;">
     <div class="element-animation" style="width: 100vw;">
-        <img src="img/hero.png">
+        <img src="img/hero.png" style="width: 100vw">
     </div>
 </div>
-<div class="show-for-large-only header-height" style="position: absolute; overflow: hidden; padding:0;">
+<div class="show-for-large-only header-height" style="position: relative; overflow: hidden; ">
     <div class="element-animation" style="width: 100vw;">
-        <img src="img/hero.png" style="min-height: 554px; max-width: 1400px; ">
+        <img src="img/hero.png" style="min-height: 554px; width: 100%">
     </div>
 </div>
-<div class="show-for-medium-only header-height" style="position: absolute; overflow: hidden; padding:0;">
+<div class="show-for-medium-only header-height" style="position: relative; overflow: hidden;">
     <div class="element-animation" style="width: 100vw;">
         <img src="img/hero.png" style="max-width: 1400px;">
     </div>
 </div>
-<div class="row">
-<div class="show-for-small-only header-height" style="position: absolute; overflow: hidden; padding:0;">
+
+<div class="show-for-small-only header-height" style="position: relative; overflow: hidden;">
     <div class="element-animation" style="width: 100vw;">
         <img src="img/hero.png" style="min-height: 554px; max-width: 1200px; ">
     </div>
-</div>
+
 </div>
 
-<div class="large-12 columns text-center header-height">
-    <div class="header-text">
+<section class="large-12 columns text-center header">
+
         <h1 class="herotext show-for-large-up">DMP<yellow class="logo-large">creator</yellow></h1>
         <h4 class="herotext-medium show-for-medium-only">DMP<yellow class="logo-medium">creator</yellow></h4>
         <h4 class="herotext-small show-for-small-only">DMP<yellow class="logo-small">creator</yellow></h4>
@@ -43,22 +60,55 @@
         <h4 class="herotext-sub-medium show-for-medium-only">Make your own scientific data management plan</h4>
         <h4 class="herotext-sub-small  show-for-small-only">Make your own scientific <br>data management plan</h4>
         <br><br><ghostbutton>Create a plan</ghostbutton>
-    </div>
+
     <div class="text-center"></div>
+</section>
+
+<div id="main-content">
+<div class="row fullWidth">
+
+    <div class="large-12 columns">
+        <h2 class="text-center">Assisted data management planning</h2>
+        <h5 class="subheader text-center">Let us guide you through the process of scientific data management planning</h5>
+    </div>
+
 </div>
-<div id="footer">
+
     <div class="row fullWidth">
-        <div class="small-4 medium-3 large-3 columns">
-            <img src="img/uni-logo.png" style="height: 50px;">
+        <div class="large-4 columns text-center">
+            <i class="fa fa-file-text fa-5x i-padding"></i>
+            <p><i>You want to produce a lot of data?</i><br> - <br>Then you need a plan how to manage your data. You need <b>standards</b>, you need to
+            assign <b>roles</b>, you need a description and you need a <b>storage</b> and <b>backup</b> plan.</p>
         </div>
-        <div class="small-8 medium-6 large-6 columns text-center">
-            Data Management in Quantitative Biology
+        <div class="large-4 columns text-center">
+            <i class="fa fa-tachometer fa-5x i-padding"></i>
+            <p><i>We will speed up the process.</i> <br> - <br>The <a href="http://www.dama.org/">DAMA International</a> community has put a lot of effort in providing
+            <b>resources</b> for <b>professional data managers</b> assisting them during the process and suggest some good practice.
+            We use the <b>terms</b> and <b>definitions</b> from DAMA International in DMPcreator, resulting in a solid data management plan.</p>
         </div>
-        <div class="medium-3 large-3 columns text-right">
-            Created with: <a href="http://foundation.zurb.com/">Foundation5</a>
+        <div class="large-4 columns text-center">
+            <i class="fa fa-university fa-5x i-padding"></i>
+            <p><i>A student's project.</i><br>-<br>DMPcreator is a project performed by students during the lecture
+            "Data Management in Quantitative Biology" at University of Tübingen.</p>
         </div>
     </div>
+
+    </div>
+
+
+
+<div class="row fullWidth">
+    <div class="large-3 columns">
+        <img src="img/uni-logo.png" style="height: 50px;">
+    </div>
+    <div class="large-6 columns text-center">
+        Data Management in Quantitative Biology
+    </div>
+    <div class="large-3 columns text-right">
+        Created with: <a href="http://foundation.zurb.com/">Foundation5</a>
+    </div>
 </div>
+
 
 
 <script src="js/vendor/jquery.js"></script>
