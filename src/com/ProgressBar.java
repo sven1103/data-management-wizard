@@ -1,9 +1,12 @@
 package com;
 
+import java.io.File;
 import java.util.LinkedList;
 
 import com.sun.xml.internal.bind.v2.TODO;
+import com.vaadin.server.FileResource;
 import com.vaadin.server.Sizeable;
+import com.vaadin.server.VaadinService;
 import com.vaadin.ui.*;
 /**
  * Implements the progress bar for DMPcreator.
@@ -14,6 +17,9 @@ public class ProgressBar {
     //TODO can be removed, only for testing
     private int numberSlides = 7;
     private LinkedList<String> list = new LinkedList<String>();
+    private FileResource barImage = new FileResource(new File(
+            VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() +
+                    "/WEB-INF/images/bar.png"));
 
     /**
      * A linked list with containing all user slides
@@ -50,19 +56,42 @@ public class ProgressBar {
         list.add("Allgemeines");
         list.add("Jipeee");
         list.add("Gehirntod");
-        list.add("keine Ahnung");
-        list.add("Ab gehts");
-        HorizontalLayout layout = new HorizontalLayout();
+        list.add("Superman");
+        list.add("Gogogogo");
+        /*
+        The vertical layout will contain two horizontal layouts,
+        one containing the bar labels, one the progress bar
+        */
+        VerticalLayout barComplete = new VerticalLayout();
+        barComplete.setSpacing(true);
+        // start with the labels, which are on top
+        HorizontalLayout barLabels = new HorizontalLayout();
+        HorizontalLayout barLine = new HorizontalLayout();
         Label tempLabel;
         for(String elem : list) {
             tempLabel = new Label(elem);
             tempLabel.addStyleName("v-align-center");
-            layout.addComponent(tempLabel);
-            layout.setComponentAlignment(tempLabel, Alignment.TOP_CENTER);
+            tempLabel.addStyleName("small");
+            barLabels.addComponent(tempLabel);
+            barLabels.setComponentAlignment(tempLabel, Alignment.TOP_CENTER);
         }
+        barLabels.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
+        barLabels.setHeightUndefined();
+        // add the bar labels to the complete progress bar layout
+        barComplete.addComponent(barLabels);
 
-        layout.setSizeFull();
-        this.setProgressBarLayout(layout);
+        Image image = new Image(null, barImage);
+        image.setWidth((33.3f - 8.0f), Sizeable.Unit.PERCENTAGE);
+        image.setHeight(5.0f, Sizeable.Unit.PIXELS);
+
+        barLine.addComponent(image);
+        barLine.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
+        barComplete.addComponent(barLine);
+
+
+        barComplete.addStyleName("");
+        barComplete.addComponent(new Label(String.valueOf(barComplete.getComponentCount())));
+        this.setProgressBarLayout(barComplete);
     }
 
     /**
