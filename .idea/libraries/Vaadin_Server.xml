@@ -4,7 +4,7 @@
       <root url="jar:///opt/vaadin/vaadin-push-7.4.5.jar!/" />
       <root url="jar:///opt/vaadin/vaadin-server-7.4.5.jar!/" />
       <root url="jar:///opt/vaadin/vaadin-shared-7.4.5.jar!/" />
-      <root url="jar:///opt/vaadin/vaadin-themes-7.4.5.jar!/" />
+      <root url="jar:///opt/vaadin/vaadin-themes-7.4.5.jar!/" ></root>
       <root url="jar:///opt/vaadin/vaadin-widgets-7.4.5.jar!/" />
       <root url="jar:///opt/vaadin/vaadin-client-compiled-7.4.5.jar!/" />
       <root url="jar:///opt/vaadin/lib/sac-1.3.jar!/" />

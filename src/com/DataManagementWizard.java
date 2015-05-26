@@ -1,11 +1,13 @@
 package com;
 
+import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.*;
 
 
 @Theme("valo")
+@StyleSheet({"http://fonts.googleapis.com/css?family=Roboto:300"})
 /**
  * Created by sven on 5/17/15.
  */
