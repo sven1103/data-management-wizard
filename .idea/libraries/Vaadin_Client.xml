@@ -8,6 +8,7 @@
     <SOURCES>
       <root url="jar:///opt/vaadin/vaadin-client-7.4.5.jar!/" />
       <root url="jar:///opt/vaadin/vaadin-client-compiler-7.4.5.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/vaadin/vaadin-client-7.4.5.jar!/" />
     </SOURCES>
   </library>
 </component>
