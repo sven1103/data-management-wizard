@@ -17,42 +17,19 @@ public class DataManagementWizard extends UI implements Button.ClickListener {
 
     protected Button button;
     protected Label header2;
+    protected Layout progressBar;
 
     @Override
     public void init(VaadinRequest request) {
 
-        VerticalLayout content = new VerticalLayout();
+        // test of the progress bar
+        ProgressBar progressBar = new ProgressBar();
+        HorizontalLayout content = new HorizontalLayout();
         setContent(content);
-        //content.setSizeFull();
+        // add sample progress bar
+        content.addComponent(progressBar.getProgressBarLayout());
 
-        Label header = new Label("Data Management Tool");
-        header.addStyleName("h1");
-        content.addComponent(header);
-
-        header2 = new Label("Click the button");
-        header2.addStyleName("h2");
-        content.addComponent(header2);
-
-        HorizontalLayout menuview = new HorizontalLayout();
-        menuview.addStyleName("wrapping");
-        //menuview.setSizeFull();
-
-        CssLayout group = new CssLayout();
-        group.addStyleName("v-component-group");
-        menuview.addComponent(group);
-
-        TextField textfield = new TextField();
-        textfield.setValue("Write something nice in here");
-        textfield.setWidth(100.0f, Unit.PERCENTAGE);
-        group.addComponent(textfield);
-        button = new Button("Go");
-        button.addClickListener(this);
-
-        group.addComponent(button);
-        menuview.setSpacing(false);
-        content.addComponent(menuview);
-        content.setExpandRatio(menuview, 1);
-
+        content.setSizeFull();
     }
     public void buttonClick(Button.ClickEvent event){
         if(flag){

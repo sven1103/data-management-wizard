@@ -1,12 +1,20 @@
 package com;
 
 import java.util.LinkedList;
+
+import com.sun.xml.internal.bind.v2.TODO;
+import com.vaadin.server.Sizeable;
 import com.vaadin.ui.*;
 /**
  * Implements the progress bar for DMPcreator.
  * @author Sven Fillinger
  */
 public class ProgressBar {
+
+    //TODO can be removed, only for testing
+    private int numberSlides = 7;
+    private LinkedList<String> list = new LinkedList<String>();
+
     /**
      * A linked list with containing all user slides
      */
@@ -16,6 +24,13 @@ public class ProgressBar {
      */
     private Layout progressBarLayout;
 
+    /**
+     * Default constructor, sets no user slide list and should
+     * only be used for testing.
+     */
+    public ProgressBar(){
+        init();
+    }
     /**
      * Constructor for a progress bar element.
      * @param _userSlideList: expects an LinkedList with user slides
@@ -31,8 +46,22 @@ public class ProgressBar {
      * implemented in the parent layout container.
      */
     public void init(){
-        VerticalLayout layout = new VerticalLayout();
+        list.add("Einleitung");
+        list.add("Allgemeines");
+        list.add("Jipeee");
+        list.add("Gehirntod");
+        list.add("keine Ahnung");
+        list.add("Ab gehts");
+        HorizontalLayout layout = new HorizontalLayout();
+        Label tempLabel;
+        for(String elem : list) {
+            tempLabel = new Label(elem);
+            tempLabel.addStyleName("v-align-center");
+            layout.addComponent(tempLabel);
+            layout.setComponentAlignment(tempLabel, Alignment.TOP_CENTER);
+        }
 
+        layout.setSizeFull();
         this.setProgressBarLayout(layout);
     }
 
