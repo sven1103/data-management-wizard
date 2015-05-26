@@ -15,6 +15,7 @@ public class ProgressBar {
      */
     public ProgressBar(LinkedList<AUserSlide> _userSlideList){
         this.userSlideList = _userSlideList;
+        this.progressBarLayout = init();
     }
 
     /**
@@ -35,5 +36,19 @@ public class ProgressBar {
         return this.userSlideList.size();
     }
 
+    public LinkedList<AUserSlide> getUserSlideList() {
+        return userSlideList;
+    }
 
+    public void setUserSlideList(LinkedList<AUserSlide> userSlideList) {
+        this.userSlideList = userSlideList;
+    }
+
+    public Layout getProgressBarLayout() {
+        return progressBarLayout;
+    }
+
+    public void setProgressBarLayout(Layout progressBarLayout) {
+        this.progressBarLayout = progressBarLayout;
+    }
 }
