@@ -30,6 +30,22 @@ public abstract class AUserSlide {
         this.content = buildContent();
     }
 
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
+    public Layout getContent() {
+        return content;
+    }
+
+    public void setContent(Layout content) {
+        this.content = content;
+    }
+
     /**
      * Abstract method. Must be implemented in the class extending this one.
      * @return Layout This method returns the built content as a Layout object.
