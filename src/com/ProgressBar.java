@@ -34,16 +34,16 @@ public class ProgressBar {
      * Default constructor, sets no user slide list and should
      * only be used for testing.
      */
-    public ProgressBar(){
-        init();
+    public ProgressBar(String highLightLabel){
+        init(highLightLabel);
     }
     /**
      * Constructor for a progress bar element.
      * @param _userSlideList: expects an LinkedList with user slides
      */
-    public ProgressBar(LinkedList<AUserSlide> _userSlideList){
+    public ProgressBar(LinkedList<AUserSlide> _userSlideList, String highLightLabel){
         this.userSlideList = _userSlideList;
-        init();
+        init(highLightLabel);
     }
 
     /**
@@ -51,7 +51,7 @@ public class ProgressBar {
      * LinkedList and returns it as a finished layout that can then be
      * implemented in the parent layout container.
      */
-    public void init(){
+    public void init(String highLightLabel){
         list.add("Einleitung");
         list.add("Allgemeines");
         list.add("Jipeee");
@@ -72,6 +72,9 @@ public class ProgressBar {
             tempLabel = new Label(elem);
             tempLabel.addStyleName("v-align-center");
             tempLabel.addStyleName("small");
+            if (highLightLabel.equals(elem)){
+                tempLabel.addStyleName("colored");
+            }
             barLabels.addComponent(tempLabel);
             barLabels.setComponentAlignment(tempLabel, Alignment.TOP_CENTER);
         }
@@ -89,8 +92,6 @@ public class ProgressBar {
         barComplete.addComponent(barLine);
 
 
-        barComplete.addStyleName("");
-        barComplete.addComponent(new Label(String.valueOf(barComplete.getComponentCount())));
         this.setProgressBarLayout(barComplete);
     }
 
