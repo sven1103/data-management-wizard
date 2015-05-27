@@ -17,7 +17,7 @@ public abstract class AUserSlide {
     private String header;
 
     /**
-     * The content of the user slide.
+     * The progressBars of the user slide.
      */
     private Layout content;
 
@@ -48,7 +48,7 @@ public abstract class AUserSlide {
 
     /**
      * Abstract method. Must be implemented in the class extending this one.
-     * @return Layout This method returns the built content as a Layout object.
+     * @return Layout This method returns the built progressBars as a Layout object.
      */
     protected abstract Layout buildContent();
 

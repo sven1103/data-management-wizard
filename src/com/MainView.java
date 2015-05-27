@@ -23,6 +23,21 @@ public class MainView extends UI {
     @DesignRoot
     public class SlideContainerView extends VerticalLayout implements View {
 
+        VerticalLayout progressBars = new VerticalLayout();
+        VerticalLayout slide = new VerticalLayout();
+        VerticalLayout nav = new VerticalLayout();
+
+        public SlideContainerView(String _progressStatus) {
+            progressStatus = _progressStatus;
+            setSizeFull();
+            /*Layout progressbar = new ProgressBar(progressStatus).getProgressBarLayout();
+            progressBars.addComponent(progressbar);*/
+            progressBars.setWidth(100.0f, Unit.PERCENTAGE);
+            addComponent(progressBars);
+            addComponent(nav);
+
+        }
+
         class ButtonListener implements Button.ClickListener {
             String nextTopic;
 
@@ -34,21 +49,6 @@ public class MainView extends UI {
             public void buttonClick(Button.ClickEvent event) {
                 navigator.navigateTo("/" + nextTopic);
             }
-        }
-
-
-        VerticalLayout content = new VerticalLayout();
-        VerticalLayout nav = new VerticalLayout();
-
-        public SlideContainerView(String _progressStatus) {
-            progressStatus = _progressStatus;
-            setSizeFull();
-            /*Layout progressbar = new ProgressBar(progressStatus).getProgressBarLayout();
-            content.addComponent(progressbar);*/
-            content.setWidth(100.0f, Unit.PERCENTAGE);
-            addComponent(content);
-            addComponent(nav);
-
         }
 
         @DesignRoot
@@ -67,13 +67,13 @@ public class MainView extends UI {
         public void enter(ViewChangeListener.ViewChangeEvent event) {
             if(event.getParameters() == null || event.getParameters().isEmpty()){
                 nav.removeAllComponents();
-                content.removeAllComponents();
+                progressBars.removeAllComponents();
                 nav.addComponent(new NavViewer());
-                content.addComponent(new ProgressBar(progressStatus).getProgressBarLayout());
+                progressBars.addComponent(new ProgressBar(progressStatus).getProgressBarLayout());
             } else{
-                content.removeAllComponents();
+                progressBars.removeAllComponents();
                 nav.removeAllComponents();
-                content.addComponent(new ProgressBar(event.getParameters()).getProgressBarLayout());
+                progressBars.addComponent(new ProgressBar(event.getParameters()).getProgressBarLayout());
                 nav.addComponent(new NavViewer());
             }
 
