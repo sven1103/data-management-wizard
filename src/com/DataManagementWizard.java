@@ -11,7 +11,7 @@ import com.vaadin.ui.*;
 /**
  * Created by sven on 5/17/15.
  */
-public class DataManagementWizard extends UI implements Button.ClickListener {
+public class DataManagementWizard extends UI {
 
     private boolean flag = true;
 
@@ -23,7 +23,7 @@ public class DataManagementWizard extends UI implements Button.ClickListener {
     public void init(VaadinRequest request) {
 
         // test of the progress bar
-        ProgressBar progressBar = new ProgressBar();
+        ProgressBar progressBar = new ProgressBar("Allgemeines");
         HorizontalLayout content = new HorizontalLayout();
         setContent(content);
         // add sample progress bar
@@ -31,15 +31,6 @@ public class DataManagementWizard extends UI implements Button.ClickListener {
 
         content.setSizeFull();
     }
-    public void buttonClick(Button.ClickEvent event){
-        if(flag){
-            header2.setValue("Hey, u just did it!");
-            button.setCaption("Click me harder!");
-            flag = false;
-        } else{
-            flag = true;
-            header2.setValue("Click the button!");
-        }
-    }
+
 
 }
