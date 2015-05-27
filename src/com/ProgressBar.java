@@ -3,7 +3,7 @@ package com;
 import java.io.File;
 import java.util.LinkedList;
 
-import com.sun.xml.internal.bind.v2.TODO;
+
 import com.vaadin.server.FileResource;
 import com.vaadin.server.Sizeable;
 import com.vaadin.server.VaadinService;
