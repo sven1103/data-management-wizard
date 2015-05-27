@@ -1,9 +1,6 @@
 package com;
 
 import java.io.File;
-import java.util.LinkedList;
-
-
 import com.vaadin.server.FileResource;
 import com.vaadin.server.Sizeable;
 import com.vaadin.server.VaadinService;
@@ -15,34 +12,21 @@ import com.vaadin.ui.*;
 public class ProgressBar {
 
     //TODO can be removed, only for testing
-    private int numberSlides = 7;
-    private LinkedList<String> list = new LinkedList<String>();
     private FileResource barImage = new FileResource(new File(
             VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() +
                     "/WEB-INF/images/bar.png"));
 
-    /**
-     * A linked list with containing all user slides
-     */
-    private LinkedList<AUserSlide> userSlideList;
-    /**
+     /**
      * The layout for the progress bar
      */
     private Layout progressBarLayout;
 
     /**
-     * Default constructor, sets no user slide list and should
-     * only be used for testing.
+     * Constructor for a progress bar object. Initiates the build
+     * of a layout containing the progress labels and bar.
+     * @param highLightLabel the label to highlight
      */
     public ProgressBar(String highLightLabel){
-        init(highLightLabel);
-    }
-    /**
-     * Constructor for a progress bar element.
-     * @param _userSlideList: expects an LinkedList with user slides
-     */
-    public ProgressBar(LinkedList<AUserSlide> _userSlideList, String highLightLabel){
-        this.userSlideList = _userSlideList;
         init(highLightLabel);
     }
 
@@ -52,23 +36,24 @@ public class ProgressBar {
      * implemented in the parent layout container.
      */
     public void init(String highLightLabel){
-        list.add("Einleitung");
-        list.add("Allgemeines");
-        list.add("Jipeee");
-        list.add("Gehirntod");
-        list.add("Superman");
-        list.add("Gogogogo");
         /*
         The vertical layout will contain two horizontal layouts,
         one containing the bar labels, one the progress bar
         */
         VerticalLayout barComplete = new VerticalLayout();
-        barComplete.setSpacing(true);
-        // start with the labels, which are on top
         HorizontalLayout barLabels = new HorizontalLayout();
         HorizontalLayout barLine = new HorizontalLayout();
+        // set spacing
+        barComplete.setSpacing(true);
+        // the width for the progress bar
+        float barDisplayRatio = 100.0f/
+                (UserSlideList.userSlides.size());
+        // the offset for stopping in the middle of an progress label
+        float offset = barDisplayRatio/2.0f;
+
+        // Build the labels, which are on top, read out from the userSlides list
         Label tempLabel;
-        for(String elem : list) {
+        for(String elem : UserSlideList.userSlides) {
             tempLabel = new Label(elem);
             tempLabel.addStyleName("v-align-center");
             tempLabel.addStyleName("small");
@@ -82,44 +67,20 @@ public class ProgressBar {
         barLabels.setHeightUndefined();
         // add the bar labels to the complete progress bar layout
         barComplete.addComponent(barLabels);
-
+        // define and add the progress bar as image to the layout
         Image image = new Image(null, barImage);
-        image.setWidth((33.3f - 8.0f), Sizeable.Unit.PERCENTAGE);
+        image.setWidth(barDisplayRatio*(UserSlideList.userSlides.indexOf(highLightLabel)+1)
+                - offset, Sizeable.Unit.PERCENTAGE);
         image.setHeight(5.0f, Sizeable.Unit.PIXELS);
 
         barLine.addComponent(image);
         barLine.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
         barComplete.addComponent(barLine);
-
-
+        // set the member variable with the progress bar layout
         this.setProgressBarLayout(barComplete);
     }
 
-    /**
-     * Gets the number of user slides in the linked list
-     * @return (int) number of user slides
-     */
-    private int getNumberSlides(){
-        return this.userSlideList.size();
-    }
-
-    /**
-     * Returns the UserSlideList
-     * @return (LinkedList) userSlideList
-     */
-    public LinkedList<AUserSlide> getUserSlideList() {
-        return this.userSlideList;
-    }
-
-    /**
-     * Set the UserSlideList
-     * @param userSlideList the list with the user slides
-     */
-    public void setUserSlideList(LinkedList<AUserSlide> userSlideList) {
-        this.userSlideList = userSlideList;
-    }
-
-    /**
+     /**
      * Returns the current progress bar layout
      * @return (Layout) progressBarLayout
      */

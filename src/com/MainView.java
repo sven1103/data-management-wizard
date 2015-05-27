@@ -25,8 +25,12 @@ public class MainView extends UI {
 
         VerticalLayout progressBars = new VerticalLayout();
         VerticalLayout slide = new VerticalLayout();
-        VerticalLayout nav = new VerticalLayout();
+        HorizontalLayout nav = new HorizontalLayout();
 
+        /**
+         * The constructor for whole slide view with progress bar, slide and navigation.
+         * @param _progressStatus the current progress element (slide)
+         */
         public SlideContainerView(String _progressStatus) {
             progressStatus = _progressStatus;
             setSizeFull();
@@ -38,54 +42,104 @@ public class MainView extends UI {
 
         }
 
+        /**
+         * A button listener, that will set the current slide element
+         * the user wants to go to.
+         */
         class ButtonListener implements Button.ClickListener {
-            String nextTopic;
-
-            public ButtonListener(String nextTopic) {
-                this.nextTopic = nextTopic;
+            String progressElement;
+            public ButtonListener(String Elem) {
+                this.progressElement = Elem;
             }
 
+            /**
+             * When one of the navigation button is clicked,
+             * move the view to the respective element. Can be forward or reverse.
+             * @param event the button click
+             */
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                navigator.navigateTo("/" + nextTopic);
+                navigator.navigateTo("/" + this.progressElement);
+                // update the progressStatus to the new one
+                progressStatus = this.progressElement;
             }
         }
 
+        /**
+         * Definition of the navigation bar
+         */
         @DesignRoot
         class NavViewer extends HorizontalLayout {
-            Button next = new Button("Allgemeines", new ButtonListener("Allgemeines"));
-            private String status;
-
+            /**
+             * Constructor for the navigation view. Builds to navigation buttons, with which you can
+             * go through the slides.
+             */
             public NavViewer() {
-                this.status = progressStatus;
+                String nextElem = UserSlideList.getNextElement(progressStatus);
+                String prevElem = UserSlideList.getPrevElement(progressStatus);
+                Button prev = new Button(prevElem, new ButtonListener(prevElem));
+                Button next = new Button(nextElem, new ButtonListener(nextElem));
+                prev.setWidth(200.0f, Unit.PIXELS);
+                next.setWidth(200.0f, Unit.PIXELS);
+                // check, if we are on the first or last slide and deactivate the respective button
+                if(prevElem.equals(progressStatus)){
+                    prev.setEnabled(false);
+                } else if(nextElem.equals(progressStatus)){
+                    next.setEnabled(false);
+                }
+                nav.addComponent(prev);
                 nav.addComponent(next);
             }
 
         }
 
+        /**
+         * The view change listener registers, when the navigateTo() function is called.
+         * We recognize a change in the progress bar (user continues in slides) and have to
+         * update the buttons and the progress bar.
+         * We also have to handle the case, when the view is called the first time.
+         * @param event navigator view change event
+         */
         @Override
         public void enter(ViewChangeListener.ViewChangeEvent event) {
+            /*
+            When the MainView is first generated, no event will be triggered
+             */
             if(event.getParameters() == null || event.getParameters().isEmpty()){
+                // Catch reload case, so no old nav and progressbar elements will be there
                 nav.removeAllComponents();
                 progressBars.removeAllComponents();
-                nav.addComponent(new NavViewer());
-                progressBars.addComponent(new ProgressBar(progressStatus).getProgressBarLayout());
+                // build components
+                new NavViewer();
+                progressBars.addComponent(new ProgressBar(UserSlideList.userSlides.getFirst()).getProgressBarLayout());
             } else{
+                /*
+                Handle the navigation event, when moving the location with navigateTo()
+                 */
+                // remove progress bar and the nav components
                 progressBars.removeAllComponents();
                 nav.removeAllComponents();
+                // add new ones with changed values
                 progressBars.addComponent(new ProgressBar(event.getParameters()).getProgressBarLayout());
-                nav.addComponent(new NavViewer());
+                progressStatus = event.getParameters();
+                new NavViewer();
             }
 
         }
     }
 
+    /**
+     * Initiate the view and the user slide list.
+     * @param request standard vaadin request
+     */
     @Override
     public void init(VaadinRequest request) {
         getPage().setTitle("Data Management Plan Creator");
-        // test of the progress bar
+        // Generate the UserSlideList
+        UserSlideList.init();
+        // Create new Navigator object
         navigator = new Navigator(this, this);
-
-        navigator.addView("", new SlideContainerView("Gehirntod"));
+        // add SlideContainerView, start with initial slide
+        navigator.addView("", new SlideContainerView("General"));
     }
 }
