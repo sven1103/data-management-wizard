@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.LinkedList;
 
 
+import com.userSlides.AUserSlide;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.Sizeable;
 import com.vaadin.server.VaadinService;
