@@ -1,4 +1,4 @@
-package com;
+package com.userSlides;
 
 import com.vaadin.ui.*;
 
@@ -47,9 +47,31 @@ public abstract class AUserSlide {
     }
 
     /**
-     * Abstract method. Must be implemented in the class extending this one.
-     * @return Layout This method returns the built progressBars as a Layout object.
+     * @return Layout. This method returns the built components as a Layout object.
      */
-    protected abstract Layout buildContent();
+    private Layout buildContent() {
+
+        // configure Components
+        configureComponents();
+
+        // buildLayout
+        Layout mainLayout = buildLayout();
+
+        return mainLayout;
+    }
+
+
+    /**
+     * Abstract method. This method initializes and configures
+     * the components of the user slide.
+     */
+    protected abstract void configureComponents();
+
+    /**
+     * Abstract method. This method arranges the components in one layout
+     * that is returned.
+     * @return Layout.
+     */
+    protected abstract Layout buildLayout();
 
 }

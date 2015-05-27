@@ -21,11 +21,13 @@ public class FirstStepsTest extends UI {
     protected TextField species;
     protected TextField projectName;
     protected TextField personInCharge;
+    protected HorizontalLayout contact;
 
     @Override
     public void init(VaadinRequest request) {
 
 
+        // configure Components
         species = new TextField("Species");
         species.setValue("Enter Species Name here.");
         species.setMaxLength(40);
@@ -44,9 +46,23 @@ public class FirstStepsTest extends UI {
             }
         });
 
+        // contact layout
+        TextField firstName = new TextField("First name");
+        TextField lastName = new TextField("Last name");
+        TextField phone = new TextField("Phone");
+        TextField email = new TextField("Email");
+        DateField birthDate = new DateField("Birth date");
+        contact = new HorizontalLayout();
+        contact.setCaption("Contact Formular");
+        contact.setMargin(true);
+        contact.setSpacing(true);
+        contact.addComponents(firstName, lastName, phone, email, birthDate);
+
+        // buildLayout
         VerticalLayout layout = new VerticalLayout();
         layout.addComponent(species);
         layout.addComponent(projectName);
+        layout.addComponent(contact);
         layout.setExpandRatio(species, 1);
         setContent(layout);
 
