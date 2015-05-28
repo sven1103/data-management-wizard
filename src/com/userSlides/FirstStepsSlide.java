@@ -24,6 +24,7 @@ public class FirstStepsSlide extends AUserSlide {
         layout.addComponent(this.species);
         layout.addComponent(this.projectName);
         layout.addComponent(this.contact);
+        layout.addComponent(this.personInCharge);
         layout.setExpandRatio(this.species, 1);
         setContent(layout);
         return layout;

@@ -23,11 +23,11 @@ public class DataManagementWizard extends UI {
     public void init(VaadinRequest request) {
 
         // test of the progress bar
-        ProgressBar progressBar = new ProgressBar("Allgemeines");
+        ProgressBarSven progressBarSven = new ProgressBarSven("Allgemeines");
         HorizontalLayout content = new HorizontalLayout();
         setContent(content);
         // add sample progress bar
-        content.addComponent(progressBar.getProgressBarLayout());
+        content.addComponent(progressBarSven.getProgressBarLayout());
 
         content.setSizeFull();
     }

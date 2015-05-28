@@ -46,6 +46,31 @@ public class FirstStepsTest extends UI {
             }
         });
 
+        // Upload
+        TsvUpload tsvUpload = new TsvUpload();
+        tsvUpload.setSlow(true);
+
+        Upload uploader = new Upload(null, tsvUpload);
+        final UploadInfoWindow uploadInfoWindow = new UploadInfoWindow(uploader, tsvUpload);
+        uploader.setImmediate(false);
+        uploader.setButtonCaption("Upload File");
+        uploader.setCaption("Experiment Design Upload from QWizard.");
+        uploader.addStartedListener(new Upload.StartedListener() {
+            @Override
+            public void uploadStarted(final Upload.StartedEvent event) {
+                if (uploadInfoWindow.getParent() == null) {
+                    UI.getCurrent().addWindow(uploadInfoWindow);
+                }
+                uploadInfoWindow.setClosable(false);
+            }
+        });
+        uploader.addFinishedListener(new Upload.FinishedListener() {
+            @Override
+            public void uploadFinished(final Upload.FinishedEvent event) {
+                uploadInfoWindow.setClosable(true);
+            }
+        });
+
         // contact layout
         TextField firstName = new TextField("First name");
         TextField lastName = new TextField("Last name");
@@ -64,6 +89,7 @@ public class FirstStepsTest extends UI {
         layout.addComponent(projectName);
         layout.addComponent(contact);
         layout.setExpandRatio(species, 1);
+        layout.addComponent(uploader);
         setContent(layout);
 
     }
