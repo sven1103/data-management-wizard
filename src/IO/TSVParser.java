@@ -2,8 +2,11 @@ package IO;
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -99,9 +102,10 @@ public class TSVParser {
 
     /**
      * set information of ths tsv file
+     * @throws IOException
      */
 
-    public void setInformation() {
+    public void setInformation() throws IOException {
 
         // set identifier
         this.communicator.setIdentifier(Arrays.asList(this.tsvContentTransposed[0]));
@@ -119,6 +123,8 @@ public class TSVParser {
         this.communicator.setTissueDetailed(Arrays.asList(this.tsvContentTransposed[7]));
         // set ncbi id
         this.communicator.setNcbiOrganismID(Integer.parseInt(this.tsvContentTransposed[9][1]));
+        // set species 
+        this.communicator.setSpecies(getSpeciesByID(this.communicator.getNcbiOrganismID()));
         // set Q sample type
         this.communicator.setQsampleType(deleteDuplicates(Arrays.asList(this.tsvContentTransposed[10])));
         // set externamDB id
@@ -127,13 +133,20 @@ public class TSVParser {
         this.communicator.setConditionTreatment(deleteDuplicates(Arrays.asList(this.tsvContentTransposed[12])));
         // set condition tissue
         this.communicator.setConditionTissue(deleteDuplicates(Arrays.asList(this.tsvContentTransposed[13])));
-
         // set number if individuals
         getNumberOfIndividuals(this.tsvContentTransposed[0]);
 
 
     }
 
+    /**
+     * get the number of individuals.
+     * Parse array with identifier. Last part
+     * of the id contains the mouse - number -> last 
+     * one = total number of mice
+     *
+     * @param names
+     */
 
     private void getNumberOfIndividuals(String[] names){
         String[] namesSplitted = names[1].split("-");
@@ -151,6 +164,13 @@ public class TSVParser {
 
     }
 
+    /**
+     * This method removes all double entries from a 
+     * given list
+     *
+     * @param
+     * @return list with just single entries
+     */
     private List<String> deleteDuplicates(List<String> listWithDuplicates){
 
         List<String> noDublicates = new LinkedList<>();
@@ -163,5 +183,41 @@ public class TSVParser {
 
         return noDublicates;
 
+    }
+
+
+
+    /**
+     * This method runs the command line program "curl" to get 
+     * the information of the species from ncbi DB.
+     * Then, it writes the output into a xml file and 
+     * parses this to get the species name of the ncbi ID 
+     *
+     * @param
+     * @return species name as string
+     * @throws IOException
+     */
+    private String getSpeciesByID(int id) throws IOException{
+        String species=null;
+
+        // run command line call to get XML file from
+        // ncbi with information about the ncbiID of our species
+        Runtime rt = Runtime.getRuntime();
+        Process proc = rt.exec("curl http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=taxonomy&id=" + id);
+
+        BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+        BufferedWriter xmlOutput = new BufferedWriter(new FileWriter("ncbiID.xml"));
+
+        // read the output from the command and write it in xml file
+        String s = null;
+        while ((s = stdInput.readLine()) != null) {
+            xmlOutput.write(s);
+        }
+        xmlOutput.close();
+
+        DOMParser domparser = new DOMParser();
+        species = domparser.parse("ncbiID.xml");
+
+        return species;
     }
 }

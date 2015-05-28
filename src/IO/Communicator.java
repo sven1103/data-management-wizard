@@ -25,11 +25,14 @@ public class Communicator {
     private List<String> externalDB_ID;
     private List<String> conditionTissue;
     private List<String> qsampleType;
+    private String species;
+
+
 
 
     public Communicator(String filepath) throws IOException{
 
-        if(filepath==""){
+        if(filepath.equals("")){
             generateDefaultCommunicator();
         } else {
             // generate communicator with parsed values from tsv file
@@ -160,4 +163,16 @@ public class Communicator {
     public void setQsampleType(List<String> qsampleType) {
         this.qsampleType = qsampleType;
     }
+
+
+    public String getSpecies() {
+        return species;
+    }
+
+    public void setSpecies(String species) {
+        this.species = species;
+    }
+
+
+
 }
