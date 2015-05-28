@@ -42,7 +42,7 @@ public class TSVParser {
 
         // arrayList to collect content of tsv file
         // initialized with first row (column names)
-        this.tsvContent = new ArrayList<>();
+        this.tsvContent = new ArrayList<String[]>();
         String[] columnNames = br.readLine().split("\t");
         this.tsvContent.add(columnNames);
 
@@ -54,7 +54,7 @@ public class TSVParser {
                 String[] lineSplitExtended = new String[columnNames.length];
 
                 for(int i = 0; i < currLineSplit.length; i++){
-                    lineSplitExtended[i] = currLineSplit[i];
+                    lineSplitExtended[i] = currLineSplit[i].trim();
                 }
 
                 this.tsvContent.add(lineSplitExtended);
@@ -153,7 +153,7 @@ public class TSVParser {
 
     private List<String> deleteDuplicates(List<String> listWithDuplicates){
 
-        List<String> noDublicates = new LinkedList<>();
+        List<String> noDublicates = new LinkedList<String>();
 
         for(int i = 1; i < listWithDuplicates.size(); i++){
             if(!noDublicates.contains(listWithDuplicates.get(i))){

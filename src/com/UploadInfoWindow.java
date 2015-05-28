@@ -115,6 +115,7 @@ public class UploadInfoWindow extends Window implements
     public void uploadSucceeded(final Upload.SucceededEvent event) {
         result.setValue(tsvUpload.getLineBreakCount() + " (total)");
         // TODO important line here
+        // TODO initialize communicator class here?
         this.upload = tsvUpload.getUploadBuilder().toString();
     }
 

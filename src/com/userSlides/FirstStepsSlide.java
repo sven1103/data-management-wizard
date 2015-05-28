@@ -1,5 +1,7 @@
 package com.userSlides;
 
+import com.TsvUpload;
+import com.UploadInfoWindow;
 import com.vaadin.event.FieldEvents;
 import com.vaadin.ui.*;
 
@@ -12,6 +14,7 @@ public class FirstStepsSlide extends AUserSlide {
     private TextField projectName;
     private TextField personInCharge;
     private HorizontalLayout contact;
+    private Upload uploader;
 
     public FirstStepsSlide(String header) {
         super(header);
@@ -25,6 +28,7 @@ public class FirstStepsSlide extends AUserSlide {
         layout.addComponent(this.projectName);
         layout.addComponent(this.contact);
         layout.addComponent(this.personInCharge);
+        layout.addComponent(this.uploader);
         layout.setExpandRatio(this.species, 1);
         setContent(layout);
         return layout;
@@ -51,6 +55,31 @@ public class FirstStepsSlide extends AUserSlide {
         // person in charge text field
         this.personInCharge = new TextField("Person in Charge");
         this.personInCharge.setMaxLength(40);
+
+        // Upload
+        TsvUpload tsvUpload = new TsvUpload();
+        tsvUpload.setSlow(true);
+
+        this.uploader = new Upload(null, tsvUpload);
+        final UploadInfoWindow uploadInfoWindow = new UploadInfoWindow(uploader, tsvUpload);
+        uploader.setImmediate(false);
+        uploader.setButtonCaption("Upload File");
+        uploader.setCaption("Experiment Design Upload from QWizard.");
+        uploader.addStartedListener(new Upload.StartedListener() {
+            @Override
+            public void uploadStarted(final Upload.StartedEvent event) {
+                if (uploadInfoWindow.getParent() == null) {
+                    UI.getCurrent().addWindow(uploadInfoWindow);
+                }
+                uploadInfoWindow.setClosable(false);
+            }
+        });
+        uploader.addFinishedListener(new Upload.FinishedListener() {
+            @Override
+            public void uploadFinished(final Upload.FinishedEvent event) {
+                uploadInfoWindow.setClosable(true);
+            }
+        });
 
         // contact data layout
         TextField firstName = new TextField("First name");

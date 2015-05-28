@@ -21,6 +21,7 @@ public class TsvUpload implements Upload.Receiver {
     @Override
     public OutputStream receiveUpload(final String filename,
                                       final String MIMEType) {
+        //FIXME remove this ?
         System.out.println(filename);
         System.out.println(new File(filename).getAbsolutePath());
 
@@ -35,13 +36,13 @@ public class TsvUpload implements Upload.Receiver {
                 if (b == searchedByte) {
                     counter++;
                 }
-                if (sleep && total % 1000 == 0) {
+/*                if (sleep && total % 1000 == 0) {
                     try {
                         Thread.sleep(100);
                     } catch (final InterruptedException e) {
                         e.printStackTrace();
                     }
-                }
+                }*/
             }
         };
         return outputStream;
