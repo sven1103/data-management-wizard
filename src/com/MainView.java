@@ -34,7 +34,7 @@ public class MainView extends UI {
         public SlideContainerView(String _progressStatus) {
             progressStatus = _progressStatus;
             setSizeFull();
-            /*Layout progressbar = new ProgressBar(progressStatus).getProgressBarLayout();
+            /*Layout progressbar = new ProgressBarSven(progressStatus).getProgressBarLayout();
             progressBars.addComponent(progressbar);*/
             progressBars.setWidth(100.0f, Unit.PERCENTAGE);
             addComponent(progressBars);
@@ -111,7 +111,7 @@ public class MainView extends UI {
                 progressBars.removeAllComponents();
                 // build components
                 new NavViewer();
-                progressBars.addComponent(new ProgressBar(UserSlideList.userSlides.getFirst()).getProgressBarLayout());
+                progressBars.addComponent(new ProgressBarSven(UserSlideList.userSlides.getFirst()).getProgressBarLayout());
             } else{
                 /*
                 Handle the navigation event, when moving the location with navigateTo()
@@ -120,7 +120,7 @@ public class MainView extends UI {
                 progressBars.removeAllComponents();
                 nav.removeAllComponents();
                 // add new ones with changed values
-                progressBars.addComponent(new ProgressBar(event.getParameters()).getProgressBarLayout());
+                progressBars.addComponent(new ProgressBarSven(event.getParameters()).getProgressBarLayout());
                 progressStatus = event.getParameters();
                 new NavViewer();
             }

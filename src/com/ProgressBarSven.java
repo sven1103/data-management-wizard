@@ -9,7 +9,7 @@ import com.vaadin.ui.*;
  * Implements the progress bar for DMPcreator.
  * @author Sven Fillinger
  */
-public class ProgressBar {
+public class ProgressBarSven {
 
     //TODO can be removed, only for testing
     private FileResource barImage = new FileResource(new File(
@@ -26,7 +26,7 @@ public class ProgressBar {
      * of a layout containing the progress labels and bar.
      * @param highLightLabel the label to highlight
      */
-    public ProgressBar(String highLightLabel){
+    public ProgressBarSven(String highLightLabel){
         init(highLightLabel);
     }
 
