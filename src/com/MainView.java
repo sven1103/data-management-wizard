@@ -25,10 +25,11 @@ public class MainView extends UI {
 
     @DesignRoot
     public class SlideContainerView extends VerticalLayout implements View {
-        VerticalLayout root = new VerticalLayout();
+
         VerticalLayout progressBars = new VerticalLayout();
-        VerticalLayout slide = new VerticalLayout();
+        Panel slide = new Panel();
         HorizontalLayout nav = new HorizontalLayout();
+
 
         /**
          * The constructor for whole slide view with progress bar, slide and navigation.
@@ -47,10 +48,10 @@ public class MainView extends UI {
 
         private void configureLayout(){
             setWidth(100.0f, Unit.PERCENTAGE);
-            progressBars.setHeight(10.0f, Unit.PERCENTAGE);
+            progressBars.setHeightUndefined();
             progressBars.setWidth(100.0f, Unit.PERCENTAGE);
             slide.setSizeFull();
-            slide.setMargin(true);
+            slide.setCaption("Settings for Data Management Plan");
         }
 
         /**
@@ -80,17 +81,23 @@ public class MainView extends UI {
          * Class for displaying the user slides
          */
         class SlideViewer extends HorizontalLayout {
+            /**
+             * The constructor for a SlideViewer object. Checks the slide it shall present
+             * and then adds it to the slide component.
+             * @param slideType
+             */
             public SlideViewer(int slideType) {
                 switch(slideType){
                     case 0:
-                        slide.addComponent(new FirstStepsSlide("test").getContent());
+                        slide.setContent(new FirstStepsSlide("test").getContent());
                         break;
                     case 1:
-                        slide.addComponent(new SecondStepsSlide("What").getContent());
+                        slide.setContent(new SecondStepsSlide("dsadas").getContent());
                         break;
                 }
             }
         }
+
         /**
          * Definition of the navigation bar
          */
@@ -135,7 +142,7 @@ public class MainView extends UI {
                 // Catch reload case, so no old nav and progressbar elements will be there
                 nav.removeAllComponents();
                 progressBars.removeAllComponents();
-                slide.removeAllComponents();
+                //slide.removeAllComponents();
                 // build components
                 new SlideViewer(UserSlideList.userSlides.indexOf(progressStatus));
                 new NavViewer();
@@ -147,7 +154,7 @@ public class MainView extends UI {
                 // remove progress bar and the nav components
                 progressBars.removeAllComponents();
                 nav.removeAllComponents();
-                slide.removeAllComponents();
+                //slide.removeAllComponents();
                 // add new ones with changed values
                 progressBars.addComponent(new ProgressBarSven(event.getParameters()).getProgressBarLayout());
                 progressStatus = event.getParameters();

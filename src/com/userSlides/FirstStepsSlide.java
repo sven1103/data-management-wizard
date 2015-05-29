@@ -30,6 +30,7 @@ public class FirstStepsSlide extends AUserSlide {
         layout.addComponent(this.personInCharge);
         layout.addComponent(this.uploader);
         layout.setExpandRatio(this.species, 1);
+        layout.setMargin(true);
         setContent(layout);
         return layout;
     }
@@ -92,5 +93,6 @@ public class FirstStepsSlide extends AUserSlide {
         this.contact.setMargin(true);
         this.contact.setSpacing(true);
         this.contact.addComponents(firstName, lastName, phone, email, birthDate);
+        this.contact.addStyleName("wrapping");
     }
 }

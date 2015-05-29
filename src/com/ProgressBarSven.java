@@ -59,6 +59,7 @@ public class ProgressBarSven {
             tempLabel.addStyleName("small");
             if (highLightLabel.equals(elem)){
                 tempLabel.addStyleName("colored");
+                tempLabel.addStyleName("bold");
             }
             barLabels.addComponent(tempLabel);
             barLabels.setComponentAlignment(tempLabel, Alignment.TOP_CENTER);
