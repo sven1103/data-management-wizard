@@ -91,6 +91,6 @@ public class FirstStepsSlide extends AUserSlide {
         this.contact.setCaption("Contact Formular");
         this.contact.setMargin(true);
         this.contact.setSpacing(true);
-        this. contact.addComponents(firstName, lastName, phone, email, birthDate);
+        this.contact.addComponents(firstName, lastName, phone, email, birthDate);
     }
 }

@@ -1,5 +1,7 @@
 package com;
 
+import com.userSlides.FirstStepsSlide;
+import com.userSlides.SecondStepsSlide;
 import com.vaadin.annotations.DesignRoot;
 import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
@@ -8,6 +10,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.*;
+
 
 
 @Theme("valo")
@@ -22,7 +25,7 @@ public class MainView extends UI {
 
     @DesignRoot
     public class SlideContainerView extends VerticalLayout implements View {
-
+        VerticalLayout root = new VerticalLayout();
         VerticalLayout progressBars = new VerticalLayout();
         VerticalLayout slide = new VerticalLayout();
         HorizontalLayout nav = new HorizontalLayout();
@@ -33,13 +36,21 @@ public class MainView extends UI {
          */
         public SlideContainerView(String _progressStatus) {
             progressStatus = _progressStatus;
-            setSizeFull();
-            /*Layout progressbar = new ProgressBarSven(progressStatus).getProgressBarLayout();
-            progressBars.addComponent(progressbar);*/
-            progressBars.setWidth(100.0f, Unit.PERCENTAGE);
-            addComponent(progressBars);
-            addComponent(nav);
+            configureLayout();
 
+            addComponent(progressBars);
+            addComponent(slide);
+            addComponent(nav);
+            setComponentAlignment(nav, Alignment.MIDDLE_RIGHT);
+
+        }
+
+        private void configureLayout(){
+            setWidth(100.0f, Unit.PERCENTAGE);
+            progressBars.setHeight(10.0f, Unit.PERCENTAGE);
+            progressBars.setWidth(100.0f, Unit.PERCENTAGE);
+            slide.setSizeFull();
+            slide.setMargin(true);
         }
 
         /**
@@ -65,6 +76,21 @@ public class MainView extends UI {
             }
         }
 
+        /**
+         * Class for displaying the user slides
+         */
+        class SlideViewer extends HorizontalLayout {
+            public SlideViewer(int slideType) {
+                switch(slideType){
+                    case 0:
+                        slide.addComponent(new FirstStepsSlide("test").getContent());
+                        break;
+                    case 1:
+                        slide.addComponent(new SecondStepsSlide("What").getContent());
+                        break;
+                }
+            }
+        }
         /**
          * Definition of the navigation bar
          */
@@ -109,7 +135,9 @@ public class MainView extends UI {
                 // Catch reload case, so no old nav and progressbar elements will be there
                 nav.removeAllComponents();
                 progressBars.removeAllComponents();
+                slide.removeAllComponents();
                 // build components
+                new SlideViewer(UserSlideList.userSlides.indexOf(progressStatus));
                 new NavViewer();
                 progressBars.addComponent(new ProgressBarSven(UserSlideList.userSlides.getFirst()).getProgressBarLayout());
             } else{
@@ -119,9 +147,11 @@ public class MainView extends UI {
                 // remove progress bar and the nav components
                 progressBars.removeAllComponents();
                 nav.removeAllComponents();
+                slide.removeAllComponents();
                 // add new ones with changed values
                 progressBars.addComponent(new ProgressBarSven(event.getParameters()).getProgressBarLayout());
                 progressStatus = event.getParameters();
+                new SlideViewer(UserSlideList.userSlides.indexOf(progressStatus));
                 new NavViewer();
             }
 
@@ -135,11 +165,12 @@ public class MainView extends UI {
     @Override
     public void init(VaadinRequest request) {
         getPage().setTitle("Data Management Plan Creator");
+
         // Generate the UserSlideList
         UserSlideList.init();
         // Create new Navigator object
         navigator = new Navigator(this, this);
         // add SlideContainerView, start with initial slide
-        navigator.addView("", new SlideContainerView("General"));
+        navigator.addView("", new SlideContainerView(UserSlideList.userSlides.getFirst()));
     }
 }
