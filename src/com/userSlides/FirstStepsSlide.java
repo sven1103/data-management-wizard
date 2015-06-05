@@ -1,9 +1,12 @@
 package com.userSlides;
 
+import IO.Communicator;
 import com.TsvUpload;
 import com.UploadInfoWindow;
 import com.vaadin.event.FieldEvents;
 import com.vaadin.ui.*;
+
+import javax.validation.constraints.Null;
 
 /**
  * Created by heumos on 5/27/15.
@@ -15,9 +18,15 @@ public class FirstStepsSlide extends AUserSlide {
     private TextField personInCharge;
     private HorizontalLayout contact;
     private Upload uploader;
+    private TsvUpload content = null;
+    private String uploadedStuff = "";
 
     public FirstStepsSlide(String header) {
         super(header);
+    }
+
+    public FirstStepsSlide(String header, Communicator tsvUpload){
+        super(header, tsvUpload);
     }
 
     @Override
@@ -58,11 +67,11 @@ public class FirstStepsSlide extends AUserSlide {
         this.personInCharge.setMaxLength(40);
 
         // Upload
-        TsvUpload tsvUpload = new TsvUpload();
-        tsvUpload.setSlow(true);
+        this.content = new TsvUpload();
+        this.content.setSlow(true);
 
-        this.uploader = new Upload(null, tsvUpload);
-        final UploadInfoWindow uploadInfoWindow = new UploadInfoWindow(uploader, tsvUpload);
+        this.uploader = new Upload(null, content);
+        final UploadInfoWindow uploadInfoWindow = new UploadInfoWindow(uploader, content);
         uploader.setImmediate(false);
         uploader.setButtonCaption("Upload File");
         uploader.setCaption("Experiment Design Upload from QWizard.");
@@ -79,6 +88,8 @@ public class FirstStepsSlide extends AUserSlide {
             @Override
             public void uploadFinished(final Upload.FinishedEvent event) {
                 uploadInfoWindow.setClosable(true);
+                uploadedStuff = uploadInfoWindow.getUpload();
+
             }
         });
 
@@ -94,5 +105,13 @@ public class FirstStepsSlide extends AUserSlide {
         this.contact.setSpacing(true);
         this.contact.addComponents(firstName, lastName, phone, email, birthDate);
         this.contact.addStyleName("wrapping");
+
+
     }
+
+    @Override
+    public String getTsvUpload(){
+        return this.uploadedStuff;
+    }
+
 }

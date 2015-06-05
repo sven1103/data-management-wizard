@@ -126,4 +126,8 @@ public class UploadInfoWindow extends Window implements
                 + Math.round(100 * progressBar.getValue()) + "%)");
     }
 
+    public String getUpload(){
+        return this.upload;
+    }
+
 }

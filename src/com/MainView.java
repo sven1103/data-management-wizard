@@ -1,5 +1,8 @@
 package com;
 
+import IO.Communicator;
+import IO.TSVParser;
+import com.userSlides.AUserSlide;
 import com.userSlides.FirstStepsSlide;
 import com.userSlides.SecondStepsSlide;
 import com.vaadin.annotations.DesignRoot;
@@ -10,7 +13,10 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.*;
+import IO.TSVParser;
 
+import javax.validation.constraints.Null;
+import java.io.IOException;
 
 
 @Theme("valo")
@@ -22,6 +28,8 @@ public class MainView extends UI {
 
     Navigator navigator;
     public static String progressStatus;
+    public Communicator parsedTSV = null;
+    private AUserSlide currentSlide = new FirstStepsSlide("gogog");
 
     @DesignRoot
     public class SlideContainerView extends VerticalLayout implements View {
@@ -89,10 +97,12 @@ public class MainView extends UI {
             public SlideViewer(int slideType) {
                 switch(slideType){
                     case 0:
-                        slide.setContent(new FirstStepsSlide("test").getContent());
+                        currentSlide = new FirstStepsSlide("test");
+                        slide.setContent(currentSlide.getContent());
                         break;
                     case 1:
-                        slide.setContent(new SecondStepsSlide("dsadas").getContent());
+                        currentSlide = new SecondStepsSlide("hiii", parsedTSV);
+                        slide.setContent(currentSlide.getContent());
                         break;
                 }
             }
@@ -152,6 +162,18 @@ public class MainView extends UI {
                 Handle the navigation event, when moving the location with navigateTo()
                  */
                 // remove progress bar and the nav components
+                if(parsedTSV == null && currentSlide.getTsvUpload() != ""){
+                    try {
+                        parsedTSV = new Communicator(currentSlide.getTsvUpload());
+                        System.out.println("Also gloaden hoats");
+                        System.out.println("Number I:" + parsedTSV.getNumberOfIndividuals());
+                    } catch (IOException ex){
+                        System.out.println("Hmmmm, error");
+                        parsedTSV = null;
+                    }
+                } else{
+                    System.out.println("whatt?");
+                }
                 progressBars.removeAllComponents();
                 nav.removeAllComponents();
                 //slide.removeAllComponents();

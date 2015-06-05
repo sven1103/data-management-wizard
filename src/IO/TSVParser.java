@@ -1,12 +1,9 @@
 package IO;
 
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import org.apache.xpath.SourceTree;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -22,9 +19,9 @@ public class TSVParser {
     String[][] tsvContentTransposed;
     Communicator communicator;
 
-    public TSVParser(String filepath, Communicator communicator) throws IOException{
+    public TSVParser(String content, Communicator communicator) throws IOException{
         this.communicator = communicator;
-        readTSV(filepath);
+        readTSV(content);
         makeAndTransposeMatrix();
 
     }
@@ -34,13 +31,14 @@ public class TSVParser {
     /**
      * read the tsv file and store content in array
      *
-     * @param filepath
+     * @param content
      * @throws IOException
      */
 
-    private void readTSV(String filepath) throws IOException{
+    private void readTSV(String content) throws IOException{
 
-        BufferedReader br = new BufferedReader(new FileReader(filepath));
+        BufferedReader br = new BufferedReader(new StringReader(content));
+
         String currLine = "";
 
         // arrayList to collect content of tsv file
@@ -52,7 +50,7 @@ public class TSVParser {
 
         try {
             while ((currLine = br.readLine()) != null) {
-
+                System.out.println(currLine);
                 String[] currLineSplit = currLine.split("\t");
                 String[] lineSplitExtended = new String[columnNames.length];
 

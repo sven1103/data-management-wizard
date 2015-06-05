@@ -4,6 +4,7 @@ import com.vaadin.data.Property;
 import com.vaadin.server.Sizeable;
 import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.ui.*;
+import com.TsvUpload;
 
 import java.util.Set;
 
@@ -112,5 +113,10 @@ public class DocContManagementSlide extends AUserSlide {
         dataTypes.setNullSelectionAllowed(false);
 
         dataTypeDescription = new TextArea("Description");
+    }
+
+    @Override
+    public String getTsvUpload(){
+        return "";
     }
 }

@@ -1,5 +1,7 @@
 package com.userSlides;
 
+import IO.Communicator;
+import com.TsvUpload;
 import com.vaadin.ui.*;
 
 /**
@@ -14,12 +16,17 @@ public abstract class AUserSlide {
      * The header or name of the user slide. Must be unique!
      * Every user slide must have a unique header or name.
      */
-    private String header;
+    protected String header;
 
     /**
      * The progressBars of the user slide.
      */
-    private Layout content;
+    protected Layout content;
+
+    /**
+     * The uploaded content
+     */
+    protected Communicator tsvUpload;
 
     /**
      * Build an abstract user slide object.
@@ -28,6 +35,19 @@ public abstract class AUserSlide {
     public AUserSlide(String header) {
         this.header = header;
         this.content = buildContent();
+        this.tsvUpload = null;
+    }
+
+    /**
+     * Overloaded constructor, expects a TsvUpload object
+     * @param header
+     * @param tsvUpload
+     */
+    public AUserSlide(String header, Communicator tsvUpload) {
+        this.header = header;
+        this.tsvUpload = tsvUpload;
+        this.content = buildContent();
+
     }
 
     public String getHeader() {
@@ -74,5 +94,6 @@ public abstract class AUserSlide {
      */
     protected abstract Layout buildLayout();
 
+    public abstract String getTsvUpload();
 
 }

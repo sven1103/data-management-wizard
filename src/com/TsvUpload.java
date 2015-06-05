@@ -2,9 +2,7 @@ package com;
 
 import com.vaadin.ui.Upload;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 
 /**
  * Created by heumos on 5/28/15.
@@ -20,10 +18,12 @@ public class TsvUpload implements Upload.Receiver {
      */
     @Override
     public OutputStream receiveUpload(final String filename,
-                                      final String MIMEType) {
+                                      final String MIMEType){
         //FIXME remove this ?
+
         System.out.println(filename);
         System.out.println(new File(filename).getAbsolutePath());
+
 
         counter = 0;
         total = 0;

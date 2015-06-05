@@ -1,5 +1,8 @@
 package com.userSlides;
 
+import IO.Communicator;
+import IO.TSVParser;
+import com.TsvUpload;
 import com.vaadin.event.FieldEvents;
 import com.vaadin.ui.*;
 
@@ -10,9 +13,13 @@ public class SecondStepsSlide extends AUserSlide {
 
     private Button button;
     private TextField samplePlace;
+    private Label testParser;
 
     public SecondStepsSlide(String header) {
         super(header);
+    }
+
+    public SecondStepsSlide(String header, Communicator tsvUpload) {super(header, tsvUpload);
     }
 
     @Override
@@ -22,6 +29,7 @@ public class SecondStepsSlide extends AUserSlide {
         layout.addComponent(this.button);
         layout.addComponent(this.samplePlace);
         layout.setExpandRatio(this.button, 1);
+        layout.addComponent(testParser);
         setContent(layout);
         return layout;
     }
@@ -42,6 +50,17 @@ public class SecondStepsSlide extends AUserSlide {
 
         // button
         this.button = new Button("Nothing to fappen here......");
+        try{
+            this.testParser = new Label(Integer.toString(this.tsvUpload.getNcbiOrganismID()) + ": " +
+            this.tsvUpload.getSpecies());
+        } catch(NullPointerException ex){
+            this.testParser = new Label("hat nicht geklappt");
+        }
 
+    }
+
+    @Override
+    public String getTsvUpload(){
+        return "";
     }
 }

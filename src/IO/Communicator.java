@@ -30,13 +30,13 @@ public class Communicator {
 
 
 
-    public Communicator(String filepath) throws IOException{
+    public Communicator(String content) throws IOException{
 
-        if(filepath.equals("")){
+        if(content.equals("")){
             generateDefaultCommunicator();
         } else {
             // generate communicator with parsed values from tsv file
-            TSVParser tsvParser = new TSVParser(filepath, this);
+            TSVParser tsvParser = new TSVParser(content, this);
             tsvParser.setInformation();
 
 

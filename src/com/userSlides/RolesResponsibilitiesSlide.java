@@ -1,5 +1,6 @@
 package com.userSlides;
 
+import com.TsvUpload;
 import com.vaadin.data.Property;
 import com.vaadin.server.Sizeable;
 import com.vaadin.shared.ui.combobox.FilteringMode;
@@ -110,5 +111,10 @@ public class RolesResponsibilitiesSlide extends AUserSlide {
         dataTypes.setNullSelectionAllowed(false);
 
         dataTypeDescription = new TextArea("Person In Charge.");
+    }
+
+    @Override
+    public String getTsvUpload(){
+        return "";
     }
 }
