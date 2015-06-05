@@ -1,35 +1,43 @@
-package com;
+package com.userSlides;
 
-import com.vaadin.annotations.Theme;
-import com.vaadin.annotations.Title;
 import com.vaadin.data.Property;
-import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.Sizeable;
 import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.ui.*;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.VerticalLayout;
 
 import java.util.Set;
 
-@Title("FirstStepsTest")
-@Theme("valo")
-
 /**
- * Created by heumos on 5/27/15.
+ * Created by heumos on 6/5/15.
  */
-public class FirstStepsTest extends UI {
+public class DocContManagementSlide extends AUserSlide {
 
-    protected Button addDataType;
-    protected Button removeDataType;
-    protected ComboBox dataTypes;
-    protected TextArea dataTypeDescription;
+    private Button addDataType;
+    private Button removeDataType;
+    private ComboBox dataTypes;
+    private TextArea dataTypeDescription;
 
-    protected Table selection;
+    private Table selection;
+
+    public DocContManagementSlide(String header) {
+        super(header);
+    }
 
     @Override
-    public void init(VaadinRequest request) {
+    protected Layout buildLayout() {
+        // buildLayout
+        HorizontalLayout horizontalLayout = new HorizontalLayout();
+        horizontalLayout.addComponents(this.addDataType, this.dataTypes, this.dataTypeDescription);
+        VerticalLayout layout = new VerticalLayout();
+        layout.addComponent(horizontalLayout);
+        layout.addComponent(this.selection);
+        layout.addComponent(this.removeDataType);
+        setContent(layout);
+        return layout;
+    }
 
-
+    @Override
+    protected void configureComponents() {
         // configure Components
         selection = new Table("Already Selected.");
         // Define two columns for the built-in container
@@ -94,7 +102,7 @@ public class FirstStepsTest extends UI {
         // Sets the icon to use with the items
         // dataTypes.setItemIconPropertyId(ExampleUtil.iso3166_PROPERTY_FLAG);
         // Set full width
-        dataTypes.setWidth(100.0f, Unit.PERCENTAGE);
+        dataTypes.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
 
         // Set the appropriate filtering mode for this example
         dataTypes.setFilteringMode(FilteringMode.CONTAINS);
@@ -104,16 +112,5 @@ public class FirstStepsTest extends UI {
         dataTypes.setNullSelectionAllowed(false);
 
         dataTypeDescription = new TextArea("Description");
-
-        // buildLayout
-        HorizontalLayout horizontalLayout = new HorizontalLayout();
-        horizontalLayout.addComponents(this.addDataType, this.dataTypes, this.dataTypeDescription);
-        VerticalLayout layout = new VerticalLayout();
-        layout.addComponent(horizontalLayout);
-        layout.addComponent(this.selection);
-        layout.addComponent(this.removeDataType);
-        setContent(layout);
-
     }
-
 }
