@@ -2,6 +2,7 @@ package com.userSlides;
 
 import com.TsvUpload;
 import com.vaadin.data.Property;
+import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Sizeable;
 import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.ui.*;
@@ -13,12 +14,13 @@ import java.util.Set;
  */
 public class RolesResponsibilitiesSlide extends AUserSlide {
 
-    protected Button addDataType;
-    protected Button removeDataType;
-    protected ComboBox dataTypes;
-    protected TextArea dataTypeDescription;
+    private Button addDataType;
+    private Button removeDataType;
+    private ComboBox dataTypes;
+    private TextArea dataTypeDescription;
 
-    protected Table selection;
+    private Table selection;
+    private Panel info;
 
     public RolesResponsibilitiesSlide(String header) {
         super(header);
@@ -27,14 +29,26 @@ public class RolesResponsibilitiesSlide extends AUserSlide {
     @Override
     protected Layout buildLayout() {
         // buildLayout
-        HorizontalLayout horizontalLayout = new HorizontalLayout();
-        horizontalLayout.addComponents(this.addDataType, this.dataTypes, this.dataTypeDescription);
+        HorizontalLayout main = new HorizontalLayout();
+
+        HorizontalLayout typeSelection = new HorizontalLayout();
+        typeSelection.addComponents(this.dataTypes, this.dataTypeDescription);
+        typeSelection.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
+
         VerticalLayout layout = new VerticalLayout();
-        layout.addComponent(horizontalLayout);
+        layout.addComponent(typeSelection);
+        layout.addComponent(this.addDataType);
         layout.addComponent(this.selection);
         layout.addComponent(this.removeDataType);
-        setContent(layout);
-        return layout;
+        layout.setSpacing(true);
+        layout.setWidth(600.0f, Sizeable.Unit.PIXELS);
+        main.addComponent(layout);
+        main.addComponent(info);
+        main.setSpacing(true);
+        main.setMargin(true);
+        main.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
+        setContent(main);
+        return main;
     }
 
     @Override
@@ -43,12 +57,14 @@ public class RolesResponsibilitiesSlide extends AUserSlide {
         selection = new Table("Already Selected.");
         // Define two columns for the built-in container
         selection.addContainerProperty("Role_Type", String.class, null);
-        selection.addContainerProperty("Person_In_Charge",  String.class, null);
+        selection.addContainerProperty("Person_In_Charge", String.class, null);
         // Allow selecting items from the table.
         selection.setSelectable(true);
         // Send changes in selection immediately to server.
         selection.setImmediate(true);
         selection.setMultiSelect(true);
+        selection.setPageLength(selection.size());
+        selection.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
         // Handle selection change.
         selection.addValueChangeListener(new Property.ValueChangeListener() {
             @Override
@@ -60,7 +76,8 @@ public class RolesResponsibilitiesSlide extends AUserSlide {
         selection.addItem(new Object[]{"Fappening", "Perverse Stuff...."}, 2);
         selection.addItem(new Object[]{"Sepp", "Platter"}, 3);
 
-        addDataType = new Button("+");
+        addDataType = new Button("Add Role");
+        addDataType.addStyleName("friendly");
         addDataType.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent clickEvent) {
@@ -77,7 +94,8 @@ public class RolesResponsibilitiesSlide extends AUserSlide {
             }
         });
 
-        removeDataType = new Button("-");
+        removeDataType = new Button("Delete Role(s)");
+        removeDataType.addStyleName("danger");
         removeDataType.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent clickEvent) {
@@ -111,10 +129,33 @@ public class RolesResponsibilitiesSlide extends AUserSlide {
         dataTypes.setNullSelectionAllowed(false);
 
         dataTypeDescription = new TextArea("Person In Charge.");
+        dataTypeDescription.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
+
+
+        info = new Panel("About Roles and Responsibilities");
+        info.setIcon(FontAwesome.INFO_CIRCLE);
+        info.addStyleName("well");
+        info.setWidth(300.0f, Sizeable.Unit.PIXELS);
+        info.setContent(infoContent());
+    }
+
+    Component infoContent(){
+        VerticalLayout layout = new VerticalLayout();
+        layout.setSizeFull();
+        layout.setMargin(true);
+        layout.setSpacing(true);
+        Label content = new Label(
+          "Spiel nicht an deinem Pillermann sonst geht er an die Eier ran."
+        );
+        layout.addComponent(content);
+        return layout;
     }
 
     @Override
     public String getTsvUpload(){
         return "";
     }
+
+    @Override
+    public void refreshComponents(){};
 }

@@ -2,6 +2,7 @@ package com;
 
 import IO.Communicator;
 import IO.TSVParser;
+import com.google.appengine.api.users.User;
 import com.userSlides.AUserSlide;
 import com.userSlides.FirstStepsSlide;
 import com.userSlides.SecondStepsSlide;
@@ -28,7 +29,7 @@ public class MainView extends UI {
 
     Navigator navigator;
     public static String progressStatus;
-    public Communicator parsedTSV = null;
+    public static Communicator parsedTSV = null;
     private AUserSlide currentSlide = new FirstStepsSlide("gogog");
 
     @DesignRoot
@@ -95,7 +96,12 @@ public class MainView extends UI {
              * @param slideType
              */
             public SlideViewer(int slideType) {
+
+                currentSlide = UserSlideList.slideContainer.get(slideType);
+                slide.setContent(currentSlide.getContent());
+                /*
                 switch(slideType){
+
                     case 0:
                         currentSlide = new FirstStepsSlide("test");
                         slide.setContent(currentSlide.getContent());
@@ -104,7 +110,7 @@ public class MainView extends UI {
                         currentSlide = new SecondStepsSlide("hiii", parsedTSV);
                         slide.setContent(currentSlide.getContent());
                         break;
-                }
+                }*/
             }
         }
 
@@ -165,8 +171,13 @@ public class MainView extends UI {
                 if(parsedTSV == null && currentSlide.getTsvUpload() != ""){
                     try {
                         parsedTSV = new Communicator(currentSlide.getTsvUpload());
+                        // refresh slides
+                        for(AUserSlide slide : UserSlideList.slideContainer){
+                            slide.refreshComponents();
+                        }
                         System.out.println("Also gloaden hoats");
                         System.out.println("Number I:" + parsedTSV.getNumberOfIndividuals());
+                        System.out.println(Integer.toString(MainView.parsedTSV.getNcbiOrganismID()));
                     } catch (IOException ex){
                         System.out.println("Hmmmm, error");
                         parsedTSV = null;
@@ -196,7 +207,7 @@ public class MainView extends UI {
         getPage().setTitle("Data Management Plan Creator");
 
         // Generate the UserSlideList
-        UserSlideList.init();
+        UserSlideList.init(parsedTSV);
         // Create new Navigator object
         navigator = new Navigator(this, this);
         // add SlideContainerView, start with initial slide

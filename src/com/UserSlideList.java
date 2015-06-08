@@ -1,7 +1,9 @@
 package com;
 
 import java.util.LinkedList;
-import java.util.List;
+
+import IO.Communicator;
+import com.userSlides.*;
 
 /**
  * <h1>User Slides</h1>
@@ -15,21 +17,34 @@ public class UserSlideList {
     public static LinkedList<String> userSlides = new LinkedList<String>();
 
     /**
+     *  The slide container with slide objects.
+     *
+     */
+    public static LinkedList<AUserSlide> slideContainer = new LinkedList<AUserSlide>();
+
+    /**
      * This method initiates all relevant user slides adding them
      * to a linked list. The field userSlides is then set as the linked
      * list.
      */
-    public static void init() {
+    public static void init(Communicator parsedTSV) {
         /*
         We have to check, if the user pressed reload. If yes, the list was already created
         and does not have to be filled again. Otherwise we would have duplicates.
          */
         if(userSlides.isEmpty()){
             userSlides.add("General");
-            userSlides.add("Data Storage");
-            userSlides.add("Security");
+            userSlides.add("Roles & Responsibilities");
+            userSlides.add("Content Management");
             userSlides.add("Metadata");
             userSlides.add("SimonInvalid");
+        }
+        if(slideContainer.isEmpty()){
+            slideContainer.add(new FirstStepsSlide("First Slide"));
+            slideContainer.add(new RolesResponsibilitiesSlide("Second Slide"));
+            slideContainer.add(new DocContManagementSlide("Third Slide"));
+            slideContainer.add(new SecondStepsSlide("force slide"));
+
         }
     }
 

@@ -38,18 +38,6 @@ public abstract class AUserSlide {
         this.tsvUpload = null;
     }
 
-    /**
-     * Overloaded constructor, expects a TsvUpload object
-     * @param header
-     * @param tsvUpload
-     */
-    public AUserSlide(String header, Communicator tsvUpload) {
-        this.header = header;
-        this.tsvUpload = tsvUpload;
-        this.content = buildContent();
-
-    }
-
     public String getHeader() {
         return header;
     }
@@ -95,5 +83,10 @@ public abstract class AUserSlide {
     protected abstract Layout buildLayout();
 
     public abstract String getTsvUpload();
+
+    /**
+     * refreshes the layout, shall be called when the TSV is loaded
+     */
+    public abstract void refreshComponents();
 
 }

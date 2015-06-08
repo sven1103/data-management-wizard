@@ -25,10 +25,6 @@ public class FirstStepsSlide extends AUserSlide {
         super(header);
     }
 
-    public FirstStepsSlide(String header, Communicator tsvUpload){
-        super(header, tsvUpload);
-    }
-
     @Override
     protected Layout buildLayout() {
         // buildLayout
@@ -114,4 +110,6 @@ public class FirstStepsSlide extends AUserSlide {
         return this.uploadedStuff;
     }
 
+    @Override
+    public void refreshComponents() {}
 }
