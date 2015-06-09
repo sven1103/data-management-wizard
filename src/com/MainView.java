@@ -138,6 +138,7 @@ public class MainView extends UI {
                 }
                 nav.addComponent(prev);
                 nav.addComponent(next);
+                nav.setSpacing(true);
             }
 
         }
