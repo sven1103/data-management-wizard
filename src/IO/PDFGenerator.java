@@ -61,13 +61,23 @@ public class PDFGenerator {
 
             // Start a new page
             document.newPage();
+
             // adding all chapters
             addGeneralProjectInformation(document, 1);
-            addDataFormatsAndStandards(document, 2);
-            addRolesAndResponsibilities(document, 3);
-            addPoliciesForDataSharingAndPublicAccess(document, 4);
-            addDisseminationMethods(document, 5);
-            addDataStorageAndPreservation(document, 6);
+
+            addRolesAndResponsibilities(document, 2);
+
+            addContentManagement(document, 3);
+
+            // meta data which are sritten in the report, not 
+            // just in menu bar
+            addMetaData(document, 4);
+
+            addDataStorageAndPreservation(document, 5);
+
+            //addPoliciesForDataSharingAndPublicAccess(document, 4);
+            //addDisseminationMethods(document, 5);
+            //addDataFormatsAndStandards(document, 2);
 
             document.close();
         } catch (Exception e) {
@@ -78,13 +88,38 @@ public class PDFGenerator {
 
 
 
+    private void addContentManagement(Document document, int chapterNumber) throws DocumentException {
+        Anchor anchor = new Anchor("Content Management", catFont);
+        anchor.setName("Content");
+
+        // Second parameter is the number of the chapter
+        Chapter catPart = new Chapter(new Paragraph(anchor), chapterNumber);
+        addEmptyLine(catPart, 2);
+        catPart.add(new Paragraph("Datatype + Description for each setting"));
 
 
 
+        // now add all this to the document
+        document.add(catPart);
+
+    }
+
+
+    private void addMetaData(Document document, int chapterNumber) throws DocumentException {
+        Anchor anchor = new Anchor("Metadata", catFont);
+        anchor.setName("Content");
+
+        // Second parameter is the number of the chapter
+        Chapter catPart = new Chapter(new Paragraph(anchor), chapterNumber);
+        addEmptyLine(catPart, 2);
+        catPart.add(new Paragraph("Datatype + Description for each setting"));
 
 
 
+        // now add all this to the document
+        document.add(catPart);
 
+    }
 
 
     // iText allows to add metadata to the PDF which can be viewed in your Adobe Reader
@@ -187,7 +222,38 @@ public class PDFGenerator {
         Paragraph subPara = new Paragraph("Responsible persons", subFont);
         addEmptyLine(catPart, 1);
         Section subCatPart = catPart.addSection(subPara);
+        addEmptyLine(subPara, 2);
+        // create table with responsible persons
+        subCatPart.add(new Paragraph("As table ...... "));
+        addEmptyLine(subCatPart, 1);
+        PdfPTable table = new PdfPTable(2);
+        PdfPCell c1 = new PdfPCell(new Phrase("Role type"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
 
+        c1 = new PdfPCell(new Phrase("Person in charge"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+        table.setHeaderRows(1);
+
+        // cell 1,1
+        table.addCell("Role");
+        // cell 1,2
+        table.addCell("Person");
+        // cell 2,1
+        table.addCell("Role");
+        // cell 2,2
+        table.addCell("Person");
+        // cell 3,1
+        table.addCell("Role");
+        // cell 3,2
+        table.addCell("Person");
+
+        subCatPart.add(table);
+
+        addEmptyLine(subCatPart, 2);
+        subCatPart.add(new Paragraph(".... or text: "));
+        addEmptyLine(subCatPart, 1);
         subCatPart.add(new Paragraph("Data owners: "));
         subCatPart.add(new Paragraph("Data managers: "));
         subCatPart.add(new Paragraph("Data contributors: "));
@@ -196,10 +262,15 @@ public class PDFGenerator {
 
 
         // now add all this to the document
+
         document.add(catPart);
 
 
     }
+
+
+
+
 
 
 
@@ -274,20 +345,26 @@ public class PDFGenerator {
         // Second parameter is the number of the chapter
         Chapter catPart = new Chapter(new Paragraph(anchor), chapterNumber);
         addEmptyLine(catPart, 1);
-        Paragraph subPara = new Paragraph("Project information", subFont);
-        addEmptyLine(catPart, 1);
+
+
+        Paragraph subPara = new Paragraph("Contact", subFont);
         Section subCatPart = catPart.addSection(subPara);
+        subCatPart.add(new Paragraph("Institute : \t" ));
+        subCatPart.add(new Paragraph("Street : \t" ));
+        subCatPart.add(new Paragraph("ZIP-Code : \t" ));
+        subCatPart.add(new Paragraph("City : \t" ));
+        subCatPart.add(new Paragraph("Country : \t" ));
+        subCatPart.add(new Paragraph("Person in charge : \t" ));
+
+        subPara = new Paragraph("Project information", subFont);
+        addEmptyLine(catPart, 1);
+        subCatPart = catPart.addSection(subPara);
 
         subCatPart.add(new Paragraph("Species: ...." + " (NCBI ID: " + "...." + " )"));
         subCatPart.add(new Paragraph("Number of individuals: "));
         subCatPart.add(new Paragraph("Sample types: "));
 
 
-        subPara = new Paragraph("Contact", subFont);
-        subCatPart = catPart.addSection(subPara);
-        subCatPart.add(new Paragraph("Name : \t" ));
-        subCatPart.add(new Paragraph("Phone : \t" ));
-        subCatPart.add(new Paragraph("Email: \t" ));
         // now add all this to the document
         document.add(catPart);
 
@@ -345,6 +422,13 @@ public class PDFGenerator {
     private void addEmptyLine(Chapter chapter, int number) {
         for (int i = 0; i < number; i++) {
             chapter.add(new Paragraph(" "));
+        }
+    }
+
+
+    private void addEmptyLine(Section subCatPart, int number) {
+        for (int i = 0; i < number; i++) {
+            subCatPart.add(new Paragraph(" "));
         }
     }
 
