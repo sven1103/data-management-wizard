@@ -40,9 +40,9 @@ public class UserSlideList {
             userSlides.add("SimonInvalid");
         }
         if(slideContainer.isEmpty()){
-            slideContainer.add(new FirstStepsSlide("First Slide"));
-            slideContainer.add(new RolesResponsibilitiesSlide("Second Slide"));
-            slideContainer.add(new DocContManagementSlide("Third Slide"));
+            slideContainer.add(new FirstStepsSlide("General Information"));
+            slideContainer.add(new RolesResponsibilitiesSlide("Roles & Responsibilities"));
+            slideContainer.add(new DocContManagementSlide("Content Management"));
             slideContainer.add(new SecondStepsSlide("force slide"));
 
         }

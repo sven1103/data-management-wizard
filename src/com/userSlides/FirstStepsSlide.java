@@ -4,6 +4,8 @@ import IO.Communicator;
 import com.TsvUpload;
 import com.UploadInfoWindow;
 import com.vaadin.event.FieldEvents;
+import com.vaadin.server.Sizeable;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 
 import javax.validation.constraints.Null;
@@ -13,13 +15,16 @@ import javax.validation.constraints.Null;
  */
 public class FirstStepsSlide extends AUserSlide {
 
-    private TextField species;
+    private Label headerText;
+    private Label subHeader;
     private TextField projectName;
     private TextField personInCharge;
-    private HorizontalLayout contact;
+    private VerticalLayout contact;
     private Upload uploader;
     private TsvUpload content = null;
     private String uploadedStuff = "";
+    private Label spacer;
+    private Label uploadInfo;
 
     public FirstStepsSlide(String header) {
         super(header);
@@ -28,39 +33,49 @@ public class FirstStepsSlide extends AUserSlide {
     @Override
     protected Layout buildLayout() {
         // buildLayout
+        VerticalLayout main = new VerticalLayout();
+        HorizontalLayout content = new HorizontalLayout();
         VerticalLayout layout = new VerticalLayout();
-        layout.addComponent(this.species);
+
         layout.addComponent(this.projectName);
-        layout.addComponent(this.contact);
         layout.addComponent(this.personInCharge);
         layout.addComponent(this.uploader);
-        layout.setExpandRatio(this.species, 1);
+        layout.addComponent(this.uploadInfo);
         layout.setMargin(true);
-        setContent(layout);
-        return layout;
+        layout.setSpacing(true);
+
+        content.addComponents(layout, this.contact);
+        content.setComponentAlignment(layout, Alignment.TOP_LEFT);
+
+        main.addComponents(this.headerText, this.subHeader, content);
+        main.setSpacing(true);
+        main.setMargin(true);
+
+        setContent(main);
+        return main;
     }
 
     @Override
     protected void configureComponents() {
         // species text field
-        this.species = new TextField("Species");
-        this.species.setValue("Enter Species Name here.");
-        this.species.setMaxLength(40);
-        this.species.setColumns(25);
-        this.species.addTextChangeListener(new FieldEvents.TextChangeListener() {
-            @Override
-            public void textChange(FieldEvents.TextChangeEvent textChangeEvent) {
-                // TODO implement this!
-            }
-        });
+        this.headerText = new Label(this.header);
+        this.headerText.addStyleName("h2");
+
+        this.subHeader = new Label("Provide some general information for your data management plan");
+        this.subHeader.addStyleName("colored");
+        this.subHeader.addStyleName("small");
+
+        this.spacer = new Label("&nbsp;", ContentMode.HTML);
+        this.spacer.setHeight("1em");
 
         // project name text field
         this.projectName = new TextField("Project Name");
-        this.projectName.setValue("Dumm Dumm Dumm");
+        this.projectName.setWidth(350.0f, Sizeable.Unit.PIXELS);
 
         // person in charge text field
         this.personInCharge = new TextField("Person in Charge");
-        this.personInCharge.setMaxLength(40);
+        this.personInCharge.setMaxLength(50);
+        this.personInCharge.setWidth(350.0f, Sizeable.Unit.PIXELS);
 
         // Upload
         this.content = new TsvUpload();
@@ -85,21 +100,33 @@ public class FirstStepsSlide extends AUserSlide {
             public void uploadFinished(final Upload.FinishedEvent event) {
                 uploadInfoWindow.setClosable(true);
                 uploadedStuff = uploadInfoWindow.getUpload();
+                uploadInfo.setValue(uploadInfoWindow.getFileName());
 
             }
         });
 
+        // will be updated on upload
+        this.uploadInfo = new Label("");
+        this.uploadInfo.setCaption("Uploaded File:");
+        this.uploadInfo.addStyleName("small");
+        this.uploadInfo.addStyleName("colored");
+
+
         // contact data layout
-        TextField firstName = new TextField("First name");
-        TextField lastName = new TextField("Last name");
-        TextField phone = new TextField("Phone");
-        TextField email = new TextField("Email");
-        DateField birthDate = new DateField("Birth date");
-        this.contact = new HorizontalLayout();
-        this.contact.setCaption("Contact Formular");
+        TextField institute = new TextField("Institute / Organization");
+        TextField street = new TextField("Street");
+        TextField zip = new TextField("ZIP-code");
+        zip.setWidth(100.0f, Sizeable.Unit.PIXELS);
+
+        TextField city = new TextField("City");
+        TextField country = new TextField("Country");
+        HorizontalLayout cityCode = new HorizontalLayout();
+        cityCode.addComponents(zip, city);
+        cityCode.setSpacing(true);
+        this.contact = new VerticalLayout();
         this.contact.setMargin(true);
         this.contact.setSpacing(true);
-        this.contact.addComponents(firstName, lastName, phone, email, birthDate);
+        this.contact.addComponents(institute, street, cityCode, country);
         this.contact.addStyleName("wrapping");
 
 

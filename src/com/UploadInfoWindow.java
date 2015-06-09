@@ -130,4 +130,8 @@ public class UploadInfoWindow extends Window implements
         return this.upload;
     }
 
+    public String getFileName(){
+        return this.fileName.getValue();
+    }
+
 }

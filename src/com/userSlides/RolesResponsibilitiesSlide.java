@@ -5,6 +5,7 @@ import com.vaadin.data.Property;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Sizeable;
 import com.vaadin.shared.ui.combobox.FilteringMode;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 
 import java.util.Set;
@@ -14,6 +15,8 @@ import java.util.Set;
  */
 public class RolesResponsibilitiesSlide extends AUserSlide {
 
+    private Label headerText;
+    private Label subHeader;
     private Button addDataType;
     private Button removeDataType;
     private ComboBox dataTypes;
@@ -29,24 +32,32 @@ public class RolesResponsibilitiesSlide extends AUserSlide {
     @Override
     protected Layout buildLayout() {
         // buildLayout
-        HorizontalLayout main = new HorizontalLayout();
+        VerticalLayout main = new VerticalLayout();
+
+        HorizontalLayout content = new HorizontalLayout();
 
         HorizontalLayout typeSelection = new HorizontalLayout();
         typeSelection.addComponents(this.dataTypes, this.dataTypeDescription);
         typeSelection.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
+        typeSelection.setSpacing(true);
 
         VerticalLayout layout = new VerticalLayout();
+
         layout.addComponent(typeSelection);
         layout.addComponent(this.addDataType);
         layout.addComponent(this.selection);
         layout.addComponent(this.removeDataType);
         layout.setSpacing(true);
-        layout.setWidth(600.0f, Sizeable.Unit.PIXELS);
-        main.addComponent(layout);
-        main.addComponent(info);
+
+        content.addComponent(layout);
+        content.addComponent(info);
+        content.setSpacing(true);
+        content.setMargin(true);
+        content.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
+        content.setComponentAlignment(info, Alignment.TOP_CENTER);
+        main.addComponents(this.headerText, this.subHeader, content);
         main.setSpacing(true);
         main.setMargin(true);
-        main.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
         setContent(main);
         return main;
     }
@@ -54,6 +65,15 @@ public class RolesResponsibilitiesSlide extends AUserSlide {
     @Override
     protected void configureComponents() {
         // configure Components
+
+        this.headerText = new Label(this.header);
+        this.headerText.addStyleName("h2");
+
+        this.subHeader = new Label("Provide some general information for your data management plan");
+        this.subHeader.addStyleName("colored");
+        this.subHeader.addStyleName("small");
+
+
         selection = new Table("Already Selected.");
         // Define two columns for the built-in container
         selection.addContainerProperty("Role_Type", String.class, null);
