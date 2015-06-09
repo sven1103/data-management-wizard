@@ -1,0 +1,113 @@
+%%% LaTeX Template
+%%% This template is made for project reports
+%%%	You may adjust it to your own needs/purposes
+%%%
+%%% Copyright: http://www.howtotex.com/
+%%% Date: March 2011
+
+%%% Preamble
+\documentclass[paper=a4, fontsize=11pt]{scrartcl}	% Article class of KOMA-script with 11pt font and a4 format
+\usepackage[T1]{fontenc}
+\usepackage{fourier}
+
+\usepackage[english]{babel}															% English language/hyphenation
+\usepackage[protrusion=true,expansion=true]{microtype}				% Better typography
+\usepackage{amsmath,amsfonts,amsthm}										% Math packages
+\usepackage[pdftex]{graphicx}														% Enable pdflatex
+\usepackage{url}
+\usepackage{colortbl}
+
+
+
+\usepackage{listings}
+\lstset{
+basicstyle=\ttfamily,
+keywordstyle=\bfseries,
+language=SQL,                % choose the language of the code
+frame=single,	                % adds a frame around the code
+aboveskip=11pt,
+belowskip=11pt,
+breaklines=true,                % sets automatic line breaking
+breakatwhitespace=false,  % sets if automatic breaks should only happen at
+showspaces=false,
+showstringspaces=false
+}
+
+
+
+%%% Custom sectioning (sectsty package)
+\usepackage{sectsty}												% Custom sectioning (see below)
+\allsectionsfont{\centering \normalfont\scshape}	% Change font of al section commands
+
+
+%%% Custom headers/footers (fancyhdr package)
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\fancyhead{}														% No page header
+%\fancyfoot[L]{\small \url{HowToTeX.com}}		% You may remove/edit this line 
+\fancyfoot[C]{}													% Empty
+\fancyfoot[R]{\thepage}									% Pagenumbering
+\renewcommand{\headrulewidth}{0pt}			% Remove header underlines
+\renewcommand{\footrulewidth}{0pt}				% Remove footer underlines
+\setlength{\headheight}{13.6pt}
+
+
+%%% Equation and float numbering
+\numberwithin{equation}{section}		% Equationnumbering: section.eq#
+\numberwithin{figure}{section}			% Figurenumbering: section.fig#
+\numberwithin{table}{section}				% Tablenumbering: section.tab#
+
+%%% Maketitle metadata
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} 	% Horizontal rule
+
+\title{
+		%\vspace{-1in} 	
+		\usefont{OT1}{bch}{b}{n}
+		%\normalfont \normalsize \textsc{University of Tuebingen} \\ [25pt]
+		\horrule{0.5pt} \\[0.4cm]
+		\LARGE Creation of a Data Management Tool
+		\horrule{2pt} \\%[0.2cm]
+}
+\author{
+		\normalfont 								\normalsize
+			Lecture: Data Management in quanitative Biology\\					\normalsize
+     		Names: Sven Fillinger, Simon Heumos, Judith Neukamm\\					\normalsize
+        	%Student number: 3355901\\				\normalsize
+        	%Supervisor: Mohamed El-Hadidi \\			\normalsize
+       		 \today
+}
+\date{}
+
+
+%%% Begin document
+\begin{document}
+\maketitle
+%\tableofcontents
+
+%\tableofcontents
+%\vspace{2cm}
+\centerline{\bf Abstract}
+Bla bla blubb
+\noindent
+
+\newpage
+
+\section{Introduction and Motivation}
+- based on data $\rightarrow$ description how to store, analyze, integrate data \cite{lecture}, as well as meta information\\
+- no existing standard, but DAMA-DMBOK as orientation which information are useful (!not complete!)\cite{lecture}\\
+- Essential aspects concern: - Data acquisition, standards, file formats  - Data sharing - Data preservation \cite{lecture}\\
+- why manage and share data?\\
+-- making data available $\rightarrow$ can impinge positive on the work (concerning discovery and relevance) (\url{http://libraries.mit.edu/data-management/plan/why/})\\
+- nice picture of research data life cycle: \url{http://data.library.virginia.edu/data-management/} 
+
+\section{Our DMP Tool}
+
+\section{Discussion}
+
+
+
+\newpage
+\bibliographystyle{plain}
+\bibliography{cites}
+%%% End document
+\end{document}
