@@ -36,7 +36,7 @@ public class UserSlideList {
             userSlides.add("General");
             userSlides.add("Roles & Responsibilities");
             userSlides.add("Content Management");
-            userSlides.add("Sorage/Backup");
+            userSlides.add("Storage/Backup");
             userSlides.add("Dissemination");
         }
         if(slideContainer.isEmpty()){

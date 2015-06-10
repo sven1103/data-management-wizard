@@ -165,8 +165,13 @@ public class RolesResponsibilitiesSlide extends AUserSlide {
         layout.setMargin(true);
         layout.setSpacing(true);
         Label content = new Label(
-          "Spiel nicht an deinem Pillermann sonst geht er an die Eier ran."
-        );
+          "For data management, one has to assign roles to certain team members or " +
+                  "collaborators, which regulates distinct <strong>responsibilities</strong> " +
+                  "and <strong>functions</strong> " +
+                  "in the project. <br>" +
+                  "You can also create new roles, if you need it. Just choose <code>others</code> " +
+                  "and name our own role."
+        , ContentMode.HTML);
         layout.addComponent(content);
         return layout;
     }

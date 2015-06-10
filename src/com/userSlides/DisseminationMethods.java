@@ -7,6 +7,7 @@ import com.vaadin.server.Sizeable;
 import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
+import IO.PDFGenerator;
 
 import java.util.Set;
 
@@ -24,6 +25,10 @@ public class DisseminationMethods extends AUserSlide {
 
     private Table selection;
     private Panel info;
+    private Button generateReportButton;
+    private VerticalLayout rightSideContainer;
+
+    private static PDFGenerator pdfGenerator;
 
     public DisseminationMethods(String header) {
         super(header);
@@ -49,12 +54,18 @@ public class DisseminationMethods extends AUserSlide {
         layout.addComponent(this.removeDataType);
         layout.setSpacing(true);
 
+        rightSideContainer = new VerticalLayout();
+        rightSideContainer.addComponents(info, generateReportButton);
         content.addComponent(layout);
-        content.addComponent(info);
+        content.addComponent(rightSideContainer);
         content.setSpacing(true);
         content.setMargin(true);
         content.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
-        content.setComponentAlignment(info, Alignment.TOP_CENTER);
+        rightSideContainer.setComponentAlignment(info, Alignment.TOP_CENTER);
+        rightSideContainer.setComponentAlignment(generateReportButton, Alignment.BOTTOM_CENTER);
+        rightSideContainer.setSpacing(true);
+        rightSideContainer.setMargin(true);
+
         main.addComponents(this.headerText, this.subHeader, content);
         main.setSpacing(true);
         main.setMargin(true);
@@ -149,15 +160,24 @@ public class DisseminationMethods extends AUserSlide {
         // Disallow null selections
         dataTypes.setNullSelectionAllowed(false);
 
-        dataTypeDescription = new TextArea("Person In Charge.");
+        dataTypeDescription = new TextArea("Description");
         dataTypeDescription.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
 
 
-        info = new Panel("About Roles and Responsibilities");
+        info = new Panel("About Dissemination");
         info.setIcon(FontAwesome.INFO_CIRCLE);
         info.addStyleName("well");
         info.setWidth(300.0f, Sizeable.Unit.PIXELS);
         info.setContent(infoContent());
+
+        generateReportButton = generateReport();
+        pdfGenerator = new PDFGenerator();
+        generateReportButton.addClickListener(new Button.ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent clickEvent) {
+                //pdfGenerator.writePDF();
+            }
+        });
     }
 
     Component infoContent(){
@@ -172,11 +192,19 @@ public class DisseminationMethods extends AUserSlide {
         return layout;
     }
 
+    Button generateReport(){
+        generateReportButton = new Button("Generate Report");
+        generateReportButton.addStyleName("huge");
+        generateReportButton.addStyleName("primary");
+        generateReportButton.setIcon(FontAwesome.ARCHIVE);
+        return generateReportButton;
+    }
+
     @Override
     public String getTsvUpload(){
         return "";
     }
 
     @Override
-    public void refreshComponents(){};
+    public void refreshComponents(){}
 }

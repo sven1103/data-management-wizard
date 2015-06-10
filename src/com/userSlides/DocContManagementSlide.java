@@ -4,6 +4,7 @@ import com.vaadin.data.Property;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Sizeable;
 import com.vaadin.shared.ui.combobox.FilteringMode;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import com.TsvUpload;
 
@@ -152,7 +153,7 @@ public class DocContManagementSlide extends AUserSlide {
         dataTypeDescription = new TextArea("Description");
         dataTypeDescription.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
 
-        info = new Panel("About Roles and Responsibilities");
+        info = new Panel("About Content Management");
         info.setIcon(FontAwesome.INFO_CIRCLE);
         info.addStyleName("well");
         info.setWidth(300.0f, Sizeable.Unit.PIXELS);
@@ -165,8 +166,10 @@ public class DocContManagementSlide extends AUserSlide {
         layout.setMargin(true);
         layout.setSpacing(true);
         Label content = new Label(
-                "Spiel nicht an deinem Pillermann sonst geht er an die Eier ran."
-        );
+                "Define your content management by assigning certain work-flows, data description," +
+                        " or any other documentation you can think of to certain data types.<br>" +
+                        "Again, you can create own data types if necessary."
+        , ContentMode.HTML);
         layout.addComponent(content);
         return layout;
     }
@@ -177,5 +180,5 @@ public class DocContManagementSlide extends AUserSlide {
     }
 
     @Override
-    public void refreshComponents(){};
+    public void refreshComponents(){}
 }
