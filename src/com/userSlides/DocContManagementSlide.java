@@ -98,7 +98,7 @@ public class DocContManagementSlide extends AUserSlide {
 //        selection.addItem(new Object[]{"Fappening", "Perverse Stuff...."}, 2);
 //        selection.addItem(new Object[]{"Sepp",        "Platter"}, 3);
 
-        addDataType = new Button("Add Type");
+        addDataType = new Button("Add Content");
         addDataType.addStyleName("friendly");
         addDataType.addClickListener(new Button.ClickListener() {
             @Override
@@ -116,7 +116,7 @@ public class DocContManagementSlide extends AUserSlide {
             }
         });
 
-        removeDataType = new Button("Remove line(s)");
+        removeDataType = new Button("Remove Content");
         removeDataType.addStyleName("danger");
         removeDataType.addClickListener(new Button.ClickListener() {
             @Override

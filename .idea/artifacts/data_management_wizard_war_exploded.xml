@@ -8,9 +8,9 @@
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Vaadin Server" />
-          <element id="file-copy" path="$USER_HOME$/Downloads/ipdf/itext-pdfa-5.5.6.jar" />
-          <element id="file-copy" path="$USER_HOME$/Downloads/ipdf/itext-xtra-5.5.6.jar" />
-          <element id="file-copy" path="$USER_HOME$/Downloads/ipdf/itextpdf-5.5.6.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/iText/itext-pdfa-5.5.6.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/iText/itext-xtra-5.5.6.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/iText/itextpdf-5.5.6.jar" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="data-management-wizard/web/Web" />
