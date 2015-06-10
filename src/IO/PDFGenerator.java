@@ -2,34 +2,38 @@ package IO;
 
 
 
-
 import java.io.FileOutputStream;
 import java.util.Date;
 
 import com.itextpdf.text.Anchor;
-import com.itextpdf.text.BadElementException;
+
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.List;
 import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.Section;
+
+
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+
+
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.*;
+
 
 
 
 public class PDFGenerator {
 
-    private String FILE = "c:/temp/FirstPdf.pdf";
+    private String FILE = "FirstPdfTest.pdf";
     private Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
     private Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.RED);
     private Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
@@ -43,14 +47,18 @@ public class PDFGenerator {
 //    }
 
 
-    public void writePDF(String filepath){
+    public PDFGenerator(){
+
+    }
+
+    public void writePDF(){
         try {
             Document document = new Document();
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filepath));
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(FILE));
             writer.setBoxSize("art", new Rectangle(36, 54, 559, 788));
             // set header
-            HeaderFooter event = new HeaderFooter();
-            writer.setPageEvent(event);
+            //HeaderFooter event = new HeaderFooter();
+            //writer.setPageEvent(event);
 
 
             document.open();
@@ -58,8 +66,8 @@ public class PDFGenerator {
             addMetaData(document);
 
             // add DMP Tool logo
-            Image image1 = Image.getInstance("logo-uni-tuebingen.png");
-            document.add(image1);
+            //Image image1 = Image.getInstance("logo-uni-tuebingen.png");
+            //document.add(image1);
             // adding title page
             addTitlePage(document, writer);
 
@@ -242,11 +250,11 @@ public class PDFGenerator {
         addEmptyLine(subCatPart, 1);
         PdfPTable table = new PdfPTable(2);
         PdfPCell c1 = new PdfPCell(new Phrase("Role type"));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        //c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
         c1 = new PdfPCell(new Phrase("Person in charge"));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+       // c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
         table.setHeaderRows(1);
 
@@ -421,8 +429,8 @@ public class PDFGenerator {
     }
 
 
-
-    /** Inner class to add a header and a footer. */
+/*
+    *//** Inner class to add a header and a footer. *//*
     static class HeaderFooter extends PdfPageEventHelper {
 
         public void onEndPage (PdfWriter writer, Document document) {
@@ -437,6 +445,6 @@ public class PDFGenerator {
                     Element.ALIGN_CENTER, new Phrase(String.format("page %d", writer.getPageNumber())),
                     (rect.getLeft() + rect.getRight()) / 2, rect.getBottom() - 18, 0);
         }
-    }
+    }*/
 
 }

@@ -10,6 +10,7 @@ import com.vaadin.ui.*;
 import IO.PDFGenerator;
 
 import java.util.Set;
+import java.util.prefs.Preferences;
 
 /**
  * Created by heumos on 6/5/15.
@@ -175,7 +176,8 @@ public class DisseminationMethods extends AUserSlide {
         generateReportButton.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent clickEvent) {
-                //pdfGenerator.writePDF();
+                System.out.println("creating PDF");
+                pdfGenerator.writePDF();
             }
         });
     }
