@@ -8,14 +8,11 @@ import java.util.*;
 import com.UserSlideList;
 import com.google.appengine.api.users.User;
 import com.itextpdf.text.*;
-
-
 import com.itextpdf.text.List;
 import com.itextpdf.text.pdf.*;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.ui.*;
-
 import com.userSlides.*;
 import com.vaadin.ui.TextField;
 
@@ -88,29 +85,36 @@ public class PDFGenerator {
         addEmptyLine(catPart, 2);
         catPart.add(new Paragraph("Datatype + Description for each setting"));
 
-        Item item = slide.getSelection().getItem("Datatype");
-        Collection ps = item.getItemPropertyIds();
-
-        for (Iterator iterator = ps.iterator(); iterator.hasNext();){
-            System.out.println(iterator);
-        }
-
-
-
+        // create table in pdf
         PdfPTable table = new PdfPTable(2);
-        PdfPCell c1 = new PdfPCell(new Phrase("Role type"));
+
+        PdfPCell c1 = new PdfPCell(new Phrase("Datatype"));
         //c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Person in charge"));
+        c1 = new PdfPCell(new Phrase("Description"));
         // c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
         table.setHeaderRows(1);
-
-       // for(String key : map.keySet()){
-       //     table.addCell(key);
-       //     table.addCell(map.get(key));
-       // }
+        
+        // Collect the results of the iteration into this string and fill table
+     	String items = "";
+     	for (Iterator<?> i = slide.getSelection().getItemIds().iterator(); i.hasNext();) {
+     	// Get the current item identifier, which is an integer.
+    		int iid = (Integer) i.next();
+    
+    		// Now get the actual item from the table.
+    		Item item = slide.getSelection().getItem(iid);
+    
+            String datatype = (String) item.getItemProperty("Datatype").getValue();
+            String description = (String) item.getItemProperty("Description").getValue(); 
+            
+            table.addCell(datatype);
+            table.addCell(description);
+    
+     	}
+        
+        
 
         catPart.add(table);
 
@@ -130,6 +134,38 @@ public class PDFGenerator {
         catPart.add(new Paragraph("Datatype + Description for each setting"));
 
 
+        // create table in pdf
+        PdfPTable table = new PdfPTable(2);
+
+        PdfPCell c1 = new PdfPCell(new Phrase("Method"));
+        //c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Description"));
+        // c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+        table.setHeaderRows(1);
+        
+        // Collect the results of the iteration into this string and fill table
+     	String items = "";
+     	for (Iterator<?> i = slide.getSelection().getItemIds().iterator(); i.hasNext();) {
+     	// Get the current item identifier, which is an integer.
+    		int iid = (Integer) i.next();
+    
+    		// Now get the actual item from the table.
+    		Item item = slide.getSelection().getItem(iid);
+    
+            String datatype = (String) item.getItemProperty("Method").getValue();
+            String description = (String) item.getItemProperty("Description").getValue(); 
+            
+            table.addCell(datatype);
+            table.addCell(description);
+    
+     	}
+        
+        
+
+        catPart.add(table);
 
         // now add all this to the document
         document.add(catPart);
@@ -218,28 +254,60 @@ public class PDFGenerator {
         // create table with responsible persons
         subCatPart.add(new Paragraph("As table ...... "));
         addEmptyLine(subCatPart, 1);
+        
+        
+
+        // create table in pdf
         PdfPTable table = new PdfPTable(2);
+
         PdfPCell c1 = new PdfPCell(new Phrase("Role type"));
         //c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
         c1 = new PdfPCell(new Phrase("Person in charge"));
-       // c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        // c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
         table.setHeaderRows(1);
-
-        // cell 1,1
-        table.addCell("Role");
-        // cell 1,2
-        table.addCell("Person");
-        // cell 2,1
-        table.addCell("Role");
-        // cell 2,2
-        table.addCell("Person");
-        // cell 3,1
-        table.addCell("Role");
-        // cell 3,2
-        table.addCell("Person");
+        
+        // Collect the results of the iteration into this string and fill table
+     	String items = "";
+     	for (Iterator<?> i = slide.getSelection().getItemIds().iterator(); i.hasNext();) {
+     	// Get the current item identifier, which is an integer.
+    		int iid = (Integer) i.next();
+    
+    		// Now get the actual item from the table.
+    		Item item = slide.getSelection().getItem(iid);
+    
+            String datatype = (String) item.getItemProperty("Role_Type").getValue();
+            String description = (String) item.getItemProperty("Person_In_Charge").getValue(); 
+            
+            table.addCell(datatype);
+            table.addCell(description);
+    
+     	}
+        
+//        PdfPTable table = new PdfPTable(2);
+//        PdfPCell c1 = new PdfPCell(new Phrase("Role type"));
+//        //c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+//        table.addCell(c1);
+//
+//        c1 = new PdfPCell(new Phrase("Person in charge"));
+//       // c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+//        table.addCell(c1);
+//        table.setHeaderRows(1);
+//
+//        // cell 1,1
+//        table.addCell("Role");
+//        // cell 1,2
+//        table.addCell("Person");
+//        // cell 2,1
+//        table.addCell("Role");
+//        // cell 2,2
+//        table.addCell("Person");
+//        // cell 3,1
+//        table.addCell("Role");
+//        // cell 3,2
+//        table.addCell("Person");
 
         subCatPart.add(table);
 
