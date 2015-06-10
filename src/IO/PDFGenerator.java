@@ -3,33 +3,21 @@ package IO;
 
 
 import java.io.FileOutputStream;
-import java.util.Date;
+import java.util.*;
 
 import com.UserSlideList;
-import com.itextpdf.text.Anchor;
+import com.google.appengine.api.users.User;
+import com.itextpdf.text.*;
 
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chapter;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Image;
+
 import com.itextpdf.text.List;
-import com.itextpdf.text.ListItem;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.Section;
+import com.itextpdf.text.pdf.*;
+import com.vaadin.data.Item;
+import com.vaadin.data.Property;
+import com.vaadin.ui.*;
 
-
-import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-
-
-import com.itextpdf.text.pdf.PdfWriter;
-import com.userSlides.AUserSlide;
-import com.userSlides.FirstStepsSlide;
+import com.userSlides.*;
+import com.vaadin.ui.TextField;
 
 
 public class PDFGenerator {
@@ -53,8 +41,8 @@ public class PDFGenerator {
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(FILE));
             writer.setBoxSize("art", new Rectangle(36, 54, 559, 788));
             // set header
-            //HeaderFooter event = new HeaderFooter();
-            //writer.setPageEvent(event);
+            HeaderFooter event = new HeaderFooter();
+            writer.setPageEvent(event);
 
 
             document.open();
@@ -65,27 +53,22 @@ public class PDFGenerator {
             //Image image1 = Image.getInstance("logo-uni-tuebingen.png");
             //document.add(image1);
             // adding title page
-            addTitlePage(document, writer);
+            addTitlePage(document, writer, (FirstStepsSlide) UserSlideList.getUserSlide("General Information"));
 
             // Start a new page
             document.newPage();
 
             // adding all chapters
-            addGeneralProjectInformation(document, 1,  (FirstStepsSlide) UserSlideList.getUserSlide("General Information"));
+            addGeneralProjectInformation(document, 1, (FirstStepsSlide) UserSlideList.getUserSlide("General Information"));
 
-            addRolesAndResponsibilities(document, 2);
+            addRolesAndResponsibilities(document, 2, (RolesResponsibilitiesSlide) UserSlideList.getUserSlide("Roles & Responsibilities"));
 
-            addContentManagement(document, 3);
+            addContentManagement(document, 3, (DocContManagementSlide) UserSlideList.getUserSlide("Content Management"));
 
-            // meta data which are sritten in the report, not 
-            // just in menu bar
-            addMetaData(document, 4);
+            addDataStorageAndPreservation(document, 4, (StorageBackupSlide) UserSlideList.getUserSlide("Storage and Backup"));
 
-            addDataStorageAndPreservation(document, 5);
+            addDissemination(document, 5, (DisseminationMethods) UserSlideList.getUserSlide("Dissemination Methods")) ;
 
-            //addPoliciesForDataSharingAndPublicAccess(document, 4);
-            //addDisseminationMethods(document, 5);
-            //addDataFormatsAndStandards(document, 2);
 
             document.close();
         } catch (Exception e) {
@@ -96,7 +79,7 @@ public class PDFGenerator {
 
 
 
-    private void addContentManagement(Document document, int chapterNumber) throws DocumentException {
+    private void addContentManagement(Document document, int chapterNumber, DocContManagementSlide slide) throws DocumentException {
         Anchor anchor = new Anchor("Content Management", catFont);
         anchor.setName("Content");
 
@@ -105,7 +88,31 @@ public class PDFGenerator {
         addEmptyLine(catPart, 2);
         catPart.add(new Paragraph("Datatype + Description for each setting"));
 
+        Item item = slide.getSelection().getItem("Datatype");
+        Collection ps = item.getItemPropertyIds();
 
+        for (Iterator iterator = ps.iterator(); iterator.hasNext();){
+            System.out.println(iterator);
+        }
+
+
+
+        PdfPTable table = new PdfPTable(2);
+        PdfPCell c1 = new PdfPCell(new Phrase("Role type"));
+        //c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Person in charge"));
+        // c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+        table.setHeaderRows(1);
+
+       // for(String key : map.keySet()){
+       //     table.addCell(key);
+       //     table.addCell(map.get(key));
+       // }
+
+        catPart.add(table);
 
         // now add all this to the document
         document.add(catPart);
@@ -113,7 +120,7 @@ public class PDFGenerator {
     }
 
 
-    private void addMetaData(Document document, int chapterNumber) throws DocumentException {
+    private void addDissemination(Document document, int chapterNumber, DisseminationMethods slide) throws DocumentException {
         Anchor anchor = new Anchor("Metadata", catFont);
         anchor.setName("Content");
 
@@ -143,7 +150,7 @@ public class PDFGenerator {
 
 
 
-    private void addTitlePage(Document document, PdfWriter writer) throws DocumentException {
+    private void addTitlePage(Document document, PdfWriter writer, FirstStepsSlide slide) throws DocumentException {
 
         Paragraph title = new Paragraph();
         // centered text
@@ -151,7 +158,7 @@ public class PDFGenerator {
         // We add one empty line
         addEmptyLine(title, 5);
         // Lets write a big header with project name
-        title.add(new Paragraph("PROJECT TITLE", catFont));
+        title.add(new Paragraph(slide.getProjectName().getValue(), catFont));
 
         addEmptyLine(title, 1);
 
@@ -195,43 +202,10 @@ public class PDFGenerator {
 
     }
 
-    private void addDataFormatsAndStandards(Document document, int chapterNumber) throws DocumentException {
-
-        Anchor anchor = new Anchor("Data collected, Formats and Standards", catFont);
-        anchor.setName("Data");
-
-        // Second parameter is the number of the chapter
-        Chapter catPart = new Chapter(new Paragraph(anchor), chapterNumber);
-
-        Paragraph subPara = new Paragraph("Subcategory 1", subFont);
-        Section subCatPart = catPart.addSection(subPara);
-        subCatPart.add(new Paragraph("Hello"));
-
-        subPara = new Paragraph("Subcategory 2", subFont);
-        subCatPart = catPart.addSection(subPara);
-        subCatPart.add(new Paragraph("Paragraph 1"));
-        subCatPart.add(new Paragraph("Paragraph 2"));
-        subCatPart.add(new Paragraph("Paragraph 3"));
-
-        // add a list
-        createList(subCatPart);
-        Paragraph paragraph = new Paragraph();
-        addEmptyLine(paragraph, 5);
-        subCatPart.add(paragraph);
-
-        // add a table
-        //createTable(subCatPart);
-
-        // now add all this to the document
-        document.add(catPart);
-
-
-    }
 
 
 
-
-    private void addRolesAndResponsibilities(Document document, int chapterNumber) throws DocumentException {
+    private void addRolesAndResponsibilities(Document document, int chapterNumber, RolesResponsibilitiesSlide slide) throws DocumentException {
         Anchor anchor = new Anchor("Roles and Responsibilities", catFont);
         anchor.setName("Roles");
 
@@ -289,54 +263,7 @@ public class PDFGenerator {
 
 
 
-
-
-
-    private void addPoliciesForDataSharingAndPublicAccess(Document document, int chapterNumber) throws DocumentException {
-        Anchor anchor = new Anchor("Policies for Data Sharing and Public Access", catFont);
-        anchor.setName("policies");
-
-        // Second parameter is the number of the chapter
-        Chapter catPart = new Chapter(new Paragraph(anchor), chapterNumber);
-        Paragraph subPara = new Paragraph("Subcategory 1", subFont);
-        Section subCatPart = catPart.addSection(subPara);
-        subCatPart.add(new Paragraph("Hello"));
-
-        subPara = new Paragraph("Subcategory", subFont);
-        subCatPart = catPart.addSection(subPara);
-        subCatPart.add(new Paragraph("This is a very important message"));
-
-        // now add all this to the document
-        document.add(catPart);
-
-
-    }
-
-
-
-    private void addDisseminationMethods(Document document, int chapterNumber) throws DocumentException {
-        Anchor anchor = new Anchor("Dissemination Methods", catFont);
-        anchor.setName("dissemination");
-
-        // Second parameter is the number of the chapter
-        Chapter catPart = new Chapter(new Paragraph(anchor), chapterNumber);
-        Paragraph subPara = new Paragraph("Subcategory 1", subFont);
-        Section subCatPart = catPart.addSection(subPara);
-        subCatPart.add(new Paragraph("Hello"));
-
-        subPara = new Paragraph("Subcategory", subFont);
-        subCatPart = catPart.addSection(subPara);
-        subCatPart.add(new Paragraph("This is a very important message"));
-
-        // now add all this to the document
-        document.add(catPart);
-
-
-    }
-
-
-
-    private void addDataStorageAndPreservation(Document document, int chapterNumber) throws DocumentException {
+    private void addDataStorageAndPreservation(Document document, int chapterNumber, StorageBackupSlide slide) throws DocumentException {
         Anchor anchor = new Anchor("Data Storage and Preservation", catFont);
         anchor.setName("dataStorage");
 
@@ -369,12 +296,20 @@ public class PDFGenerator {
 
         Paragraph subPara = new Paragraph("Contact", subFont);
         Section subCatPart = catPart.addSection(subPara);
-        subCatPart.add(new Paragraph("Institute : \t" ));
-        subCatPart.add(new Paragraph("Street : \t" ));
-        subCatPart.add(new Paragraph("ZIP-Code : \t" ));
-        subCatPart.add(new Paragraph("City : \t" ));
-        subCatPart.add(new Paragraph("Country : \t" ));
-        subCatPart.add(new Paragraph("Person in charge : \t" ));
+
+        TextField institute = (TextField) slide.getContact().getComponent(0);
+        TextField street = (TextField) slide.getContact().getComponent(1);
+        HorizontalLayout zipAndCountry = (HorizontalLayout) slide.getContact().getComponent(2);
+        TextField zip = (TextField) zipAndCountry.getComponent(0);
+        TextField city = (TextField) zipAndCountry.getComponent(1);
+        TextField country = (TextField) slide.getContact().getComponent(3);
+
+        subCatPart.add(new Paragraph("Institute : \t" + institute.getValue()));
+        subCatPart.add(new Paragraph("Street : \t" + street.getValue()));
+        subCatPart.add(new Paragraph("ZIP-Code : \t" + zip.getValue()));
+        subCatPart.add(new Paragraph("City : \t" + city.getValue()));
+        subCatPart.add(new Paragraph("Country : \t" + country.getValue()));
+        subCatPart.add(new Paragraph("Person in charge : \t" + slide.getPersonInCharge().getValue()));
 
         subPara = new Paragraph("Project information", subFont);
         addEmptyLine(catPart, 1);
@@ -427,8 +362,8 @@ public class PDFGenerator {
     }
 
 
-/*
-    *//** Inner class to add a header and a footer. *//*
+
+    /** Inner class to add a header and a footer. */
     static class HeaderFooter extends PdfPageEventHelper {
 
         public void onEndPage (PdfWriter writer, Document document) {
@@ -443,6 +378,6 @@ public class PDFGenerator {
                     Element.ALIGN_CENTER, new Phrase(String.format("page %d", writer.getPageNumber())),
                     (rect.getLeft() + rect.getRight()) / 2, rect.getBottom() - 18, 0);
         }
-    }*/
+    }
 
 }
