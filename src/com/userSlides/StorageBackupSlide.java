@@ -1,12 +1,11 @@
 package com.userSlides;
 
-import com.vaadin.data.Property;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Sizeable;
 import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.ui.*;
 
-import java.util.Set;
+import java.util.HashMap;
 
 /**
  * Created by heumos on 6/5/15.
@@ -15,14 +14,14 @@ public class StorageBackupSlide extends AUserSlide {
 
     private Label headerText;
     private Label subHeader;
-    private Button addDataType;
-    private Button removeDataType;
-    private ComboBox dataTypes;
-    private TextArea dataTypeDescription;
-    private Button popupButton;
-
-    private Table selection;
+    private Label peptidesSpace;
+    private TextField storageLocation;
+    private ComboBox backupSolution;
+    private ComboBox archieveSolution;
     private Panel info;
+
+    // TODO add getter and setter
+    private HashMap<String, Integer> expMap;
 
     public StorageBackupSlide(String header) {
         super(header);
@@ -36,19 +35,16 @@ public class StorageBackupSlide extends AUserSlide {
         HorizontalLayout content = new HorizontalLayout();
 
         VerticalLayout roleType = new VerticalLayout();
-        roleType.addComponents(this.dataTypes, this.popupButton);
+        roleType.addComponents(this.backupSolution);
+        roleType.addComponent(peptidesSpace);
         HorizontalLayout typeSelection = new HorizontalLayout();
-        typeSelection.addComponents(roleType, this.dataTypeDescription);
+        typeSelection.addComponents(roleType, this.archieveSolution);
         typeSelection.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
         typeSelection.setSpacing(true);
 
         VerticalLayout layout = new VerticalLayout();
 
         layout.addComponent(typeSelection);
-        layout.addComponent(popupButton);
-        layout.addComponent(this.addDataType);
-        layout.addComponent(this.selection);
-        layout.addComponent(this.removeDataType);
         layout.setSpacing(true);
 
         content.addComponent(layout);
@@ -57,7 +53,7 @@ public class StorageBackupSlide extends AUserSlide {
         content.setMargin(true);
         content.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
         content.setComponentAlignment(info, Alignment.TOP_CENTER);
-        main.addComponents(this.headerText, this.subHeader, content);
+        main.addComponents(this.headerText, this.subHeader, this.storageLocation, content);
         main.setSpacing(true);
         main.setMargin(true);
         setContent(main);
@@ -72,104 +68,61 @@ public class StorageBackupSlide extends AUserSlide {
         this.headerText = new Label(this.header);
         this.headerText.addStyleName("h2");
 
-        this.subHeader = new Label("Provide some general information for your data management plan");
+        this.subHeader = new Label("This section covers the topic of data storage/backup and archieve.");
         this.subHeader.addStyleName("colored");
         this.subHeader.addStyleName("small");
 
-
-        selection = new Table("Already chosen responsibilities.");
-        // Define two columns for the built-in container
-        selection.addContainerProperty("Role_Type", String.class, null);
-        selection.addContainerProperty("Person_In_Charge", String.class, null);
-        // Allow selecting items from the table.
-        selection.setSelectable(true);
-        // Send changes in selection immediately to server.
-        selection.setImmediate(true);
-        selection.setMultiSelect(true);
-        selection.setPageLength(selection.size());
-        selection.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
-        // Handle selection change.
-        selection.addValueChangeListener(new Property.ValueChangeListener() {
-            @Override
-            public void valueChange(Property.ValueChangeEvent event) {
-                Notification.show("Selected: " + selection.getValue(),
-                        Notification.Type.TRAY_NOTIFICATION);
-            }
-        });
-//        selection.addItem(new Object[]{"Fappening", "Perverse Stuff...."}, 2);
-//        selection.addItem(new Object[]{"Sepp", "Platter"}, 3);
-
-        addDataType = new Button("Add Responsibility");
-        addDataType.addStyleName("friendly");
-        addDataType.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent clickEvent) {
-                if (!dataTypes.isEmpty()) {
-                    Notification.show(dataTypes.getValue().toString(),
-                            Notification.Type.TRAY_NOTIFICATION);
-                    String dataType = dataTypes.getValue().toString();
-                    String description = dataTypeDescription.getValue().toString();
-                    StringBuilder sB = new StringBuilder();
-                    sB.append(dataType);
-                    sB.append(description);
-                    selection.addItem(new Object[]{dataType, description}, sB.toString().hashCode());
-                }
-            }
-        });
-
-        removeDataType = new Button("Delete Responsibility");
-        removeDataType.addStyleName("danger");
-        removeDataType.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent clickEvent) {
-                // get the current selected rows as a set
-                Set<Integer> selectedVals = (Set<Integer>) selection.getValue();
-                for (Integer itemId : selectedVals) {
-                    selection.removeItem(itemId);
-                }
-            }
-        });
+        this.storageLocation = new TextField("Storage Location");
+        this.storageLocation.setValue("Enter location...");
 
         // Creates a new combobox using an existing container
-        dataTypes = new ComboBox("Select your role type.");
-        dataTypes.setInputPrompt("No role type selected.");
-        dataTypes.setInvalidAllowed(false);
-        dataTypes.setNullSelectionAllowed(false);
-        dataTypes.addItem("Data Owners");
-        dataTypes.addItem("Data Managers");
-        dataTypes.addItem("Data Contributors");
-        dataTypes.addItem("Data Researchers");
+        backupSolution = new ComboBox("Select your backup solution.");
+        backupSolution.setInputPrompt("No backup solution.");
+        backupSolution.setInvalidAllowed(false);
+        backupSolution.setNullSelectionAllowed(false);
+        backupSolution.addItem("RAID 1");
+        backupSolution.addItem("RAID 5");
+        backupSolution.addItem("RAID 6");
+        backupSolution.addItem("RAID 10");
         // Sets the icon to use with the items
-        // dataTypes.setItemIconPropertyId(ExampleUtil.iso3166_PROPERTY_FLAG);
+        // backupSolution.setItemIconPropertyId(ExampleUtil.iso3166_PROPERTY_FLAG);
         // Set full width
-        dataTypes.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
+        backupSolution.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
 
         // Set the appropriate filtering mode for this example
-        dataTypes.setFilteringMode(FilteringMode.CONTAINS);
-        dataTypes.setImmediate(true);
+        backupSolution.setFilteringMode(FilteringMode.CONTAINS);
+        backupSolution.setImmediate(true);
 
         // Disallow null selections
-        dataTypes.setNullSelectionAllowed(false);
+        backupSolution.setNullSelectionAllowed(false);
 
-        popupButton = new Button("Add unfamiliar role.");
-        popupButton.addClickListener(new Button.ClickListener() {
-            public void buttonClick(Button.ClickEvent event) {
-                RolesResponsibilitiesSub sub = new RolesResponsibilitiesSub(dataTypes);
+        archieveSolution = new ComboBox("Select your archieve solution.");
+        archieveSolution.setInputPrompt("No backup solution.");
+        archieveSolution.setInvalidAllowed(false);
+        archieveSolution.setNullSelectionAllowed(false);
+        archieveSolution.addItem("TAPE");
+        archieveSolution.addItem("RAID 1");
+        // Sets the icon to use with the items
+        // backupSolution.setItemIconPropertyId(ExampleUtil.iso3166_PROPERTY_FLAG);
+        // Set full width
+        archieveSolution.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
 
-                // Add it to the root component
-                UI.getCurrent().addWindow(sub);
-            }
-        });
+        // Set the appropriate filtering mode for this example
+        archieveSolution.setFilteringMode(FilteringMode.CONTAINS);
+        archieveSolution.setImmediate(true);
 
-        dataTypeDescription = new TextArea("Person In Charge.");
-        dataTypeDescription.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
+        // Disallow null selections
+        archieveSolution.setNullSelectionAllowed(false);
 
 
-        info = new Panel("About Roles and Responsibilities");
+        info = new Panel("About Storage and Backup");
         info.setIcon(FontAwesome.INFO_CIRCLE);
         info.addStyleName("well");
         info.setWidth(300.0f, Sizeable.Unit.PIXELS);
         info.setContent(infoContent());
+
+        peptidesSpace = new Label("PEPTIDES Space");
+        peptidesSpace.setValue("Approximate space needed for one PEPTIDES experiment: 20GB.");
     }
 
     Component infoContent(){
@@ -178,8 +131,8 @@ public class StorageBackupSlide extends AUserSlide {
         layout.setMargin(true);
         layout.setSpacing(true);
         Label content = new Label(
-                "Scientists being aware of their roles & responsibilities" +
-                        " maintain an efficient and productive working environment for everyone."
+                "The determination of rules for storage & backup" +
+                        " contributes to a complete data management plan."
         );
         layout.addComponent(content);
         return layout;
@@ -201,52 +154,20 @@ public class StorageBackupSlide extends AUserSlide {
         this.subHeader = subHeader;
     }
 
-    public Button getAddDataType() {
-        return addDataType;
+    public ComboBox getBackupSolution() {
+        return backupSolution;
     }
 
-    public void setAddDataType(Button addDataType) {
-        this.addDataType = addDataType;
+    public void setBackupSolution(ComboBox backupSolution) {
+        this.backupSolution = backupSolution;
     }
 
-    public Button getRemoveDataType() {
-        return removeDataType;
+    public ComboBox getArchieveSolution() {
+        return archieveSolution;
     }
 
-    public void setRemoveDataType(Button removeDataType) {
-        this.removeDataType = removeDataType;
-    }
-
-    public ComboBox getDataTypes() {
-        return dataTypes;
-    }
-
-    public void setDataTypes(ComboBox dataTypes) {
-        this.dataTypes = dataTypes;
-    }
-
-    public TextArea getDataTypeDescription() {
-        return dataTypeDescription;
-    }
-
-    public void setDataTypeDescription(TextArea dataTypeDescription) {
-        this.dataTypeDescription = dataTypeDescription;
-    }
-
-    public Button getPopupButton() {
-        return popupButton;
-    }
-
-    public void setPopupButton(Button popupButton) {
-        this.popupButton = popupButton;
-    }
-
-    public Table getSelection() {
-        return selection;
-    }
-
-    public void setSelection(Table selection) {
-        this.selection = selection;
+    public void setArchieveSolution(ComboBox archieveSolution) {
+        this.archieveSolution = archieveSolution;
     }
 
     public Panel getInfo() {

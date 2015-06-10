@@ -121,7 +121,6 @@ public class TSVParser {
         // set species 
         this.communicator.setSpecies(getSpeciesByID(this.communicator.getNcbiOrganismID()));
         // set Q sample type
-        // TODO change method to generateHashMap
         this.communicator.setQsampleType(generateHashMap(Arrays.asList(this.tsvContentTransposed[10])));
         // set externamDB id
         this.communicator.setExternalDB_ID(Arrays.asList(this.tsvContentTransposed[11]));

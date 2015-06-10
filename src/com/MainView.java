@@ -1,11 +1,8 @@
 package com;
 
 import IO.Communicator;
-import IO.TSVParser;
-import com.google.appengine.api.users.User;
 import com.userSlides.AUserSlide;
 import com.userSlides.FirstStepsSlide;
-import com.userSlides.SecondStepsSlide;
 import com.userSlides.StorageBackupSlide;
 import com.vaadin.annotations.DesignRoot;
 import com.vaadin.annotations.StyleSheet;
@@ -15,9 +12,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.*;
-import IO.TSVParser;
 
-import javax.validation.constraints.Null;
 import java.io.IOException;
 
 
@@ -221,6 +216,6 @@ public class MainView extends UI {
     private void updateStorageBackupSlide(Communicator parsedTSV) {
         // TODO implement this out
         StorageBackupSlide storageBackupSlide = (StorageBackupSlide) UserSlideList.getUserSlide("Storage and Backup");
-        storageBackupSlide.getDataTypeDescription().setValue(parsedTSV.getSpecies());
+        storageBackupSlide.getArchieveSolution().setValue(parsedTSV.getSpecies());
     }
 }
