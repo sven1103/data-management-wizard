@@ -42,7 +42,7 @@ public class UserSlideList {
         if(slideContainer.isEmpty()){
             slideContainer.add(new FirstStepsSlide("General Information"));
             slideContainer.add(new RolesResponsibilitiesSlide("Roles & Responsibilities"));
-            slideContainer.add(new DocContManagementSlide("Content Management"));
+            slideContainer.add(new StorageBackupSlide("Content Management"));
             slideContainer.add(new DocContManagementSlide("Storage and Backup"));
             slideContainer.add(new DisseminationMethods("Dissemination Methods"));
         }
