@@ -4,9 +4,7 @@ package com.userSlides;
         import com.vaadin.server.FontAwesome;
         import com.vaadin.server.Sizeable;
         import com.vaadin.shared.ui.combobox.FilteringMode;
-        import com.vaadin.shared.ui.label.ContentMode;
         import com.vaadin.ui.*;
-        import com.TsvUpload;
 
         import java.util.Set;
 
@@ -21,6 +19,7 @@ public class DocContManagementSlide extends AUserSlide {
     private Button removeDataType;
     private ComboBox dataTypes;
     private TextArea dataTypeDescription;
+    private Button popupButton;
 
     private Table selection;
     private Panel info;
@@ -44,6 +43,7 @@ public class DocContManagementSlide extends AUserSlide {
 
         VerticalLayout layout = new VerticalLayout();
         layout.addComponent(typeSelection);
+        layout.addComponent(popupButton);
         layout.addComponent(this.addDataType);
         layout.addComponent(this.selection);
         layout.addComponent(this.removeDataType);
@@ -70,11 +70,12 @@ public class DocContManagementSlide extends AUserSlide {
         this.headerText = new Label(this.header);
         this.headerText.addStyleName("h2");
 
-        this.subHeader = new Label("Provide some general information for your data management plan");
+        this.subHeader = new Label("Please specify here which data types including content will " +
+                                "be occurring during the project.");
         this.subHeader.addStyleName("colored");
         this.subHeader.addStyleName("small");
 
-        selection = new Table("Already Selected.");
+        selection = new Table("Already chosen contents.");
         // Define two columns for the built-in container
         selection.addContainerProperty("Datatype", String.class, null);
         selection.addContainerProperty("Description",  String.class, null);
@@ -94,10 +95,10 @@ public class DocContManagementSlide extends AUserSlide {
                 current.setValue("Selected: " + selection.getValue());
             }
         });
-        selection.addItem(new Object[]{"Fappening", "Perverse Stuff...."}, 2);
-        selection.addItem(new Object[]{"Sepp",        "Platter"}, 3);
+//        selection.addItem(new Object[]{"Fappening", "Perverse Stuff...."}, 2);
+//        selection.addItem(new Object[]{"Sepp",        "Platter"}, 3);
 
-        addDataType = new Button("Add type");
+        addDataType = new Button("Add Type");
         addDataType.addStyleName("friendly");
         addDataType.addClickListener(new Button.ClickListener() {
             @Override
@@ -129,8 +130,8 @@ public class DocContManagementSlide extends AUserSlide {
         });
 
         // Creates a new combobox using an existing container
-        dataTypes = new ComboBox("Select your datatype.");
-        dataTypes.setInputPrompt("No datatype selected.");
+        dataTypes = new ComboBox("Select your data type.");
+        dataTypes.setInputPrompt("No data type selected.");
         dataTypes.setInvalidAllowed(false);
         dataTypes.setNullSelectionAllowed(false);
         dataTypes.addItem("DOCX");
@@ -150,6 +151,16 @@ public class DocContManagementSlide extends AUserSlide {
         // Disallow null selections
         dataTypes.setNullSelectionAllowed(false);
 
+        popupButton = new Button("Add unfamiliar data type.");
+        popupButton.addClickListener(new Button.ClickListener() {
+            public void buttonClick(Button.ClickEvent event) {
+                DocContManagementSub sub = new DocContManagementSub(dataTypes);
+
+                // Add it to the root component
+                UI.getCurrent().addWindow(sub);
+            }
+        });
+
         dataTypeDescription = new TextArea("Description");
         dataTypeDescription.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
 
@@ -166,10 +177,8 @@ public class DocContManagementSlide extends AUserSlide {
         layout.setMargin(true);
         layout.setSpacing(true);
         Label content = new Label(
-                "Define your content management by assigning certain work-flows, data description," +
-                        " or any other documentation you can think of to certain data types.<br>" +
-                        "Again, you can create own data types if necessary."
-                , ContentMode.HTML);
+                "Having a clear overview over current work progresses and processes is the role of " +
+                                        "content management.");
         layout.addComponent(content);
         return layout;
     }

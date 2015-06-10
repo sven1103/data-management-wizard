@@ -6,6 +6,7 @@ import com.google.appengine.api.users.User;
 import com.userSlides.AUserSlide;
 import com.userSlides.FirstStepsSlide;
 import com.userSlides.SecondStepsSlide;
+import com.userSlides.StorageBackupSlide;
 import com.vaadin.annotations.DesignRoot;
 import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
@@ -179,7 +180,8 @@ public class MainView extends UI {
                         System.out.println("Also gloaden hoats");
                         System.out.println("Number I:" + parsedTSV.getNumberOfIndividuals());
                         System.out.println(Integer.toString(MainView.parsedTSV.getNcbiOrganismID()));
-                        // TODO add function that adds necessery information for storage & backup slide
+                        // function that adds necessery information for storage & backup slide
+                        updateStorageBackupSlide(parsedTSV);
                     } catch (IOException ex) {
                         System.out.println("Hmmmm, error");
                         parsedTSV = null;
@@ -214,5 +216,11 @@ public class MainView extends UI {
         navigator = new Navigator(this, this);
         // add SlideContainerView, start with initial slide
         navigator.addView("", new SlideContainerView(UserSlideList.userSlides.getFirst()));
+    }
+
+    private void updateStorageBackupSlide(Communicator parsedTSV) {
+        // TODO implement this out
+        StorageBackupSlide storageBackupSlide = (StorageBackupSlide) UserSlideList.getUserSlide("Storage and Backup");
+        storageBackupSlide.getDataTypeDescription().setValue(parsedTSV.getSpecies());
     }
 }

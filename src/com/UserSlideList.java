@@ -62,5 +62,15 @@ public class UserSlideList {
         return currElementIndex < userSlides.size()-1 ? userSlides.get(currElementIndex+1): userSlides.get(currElementIndex);
     }
 
-
+    public static AUserSlide getUserSlide(String s) {
+        AUserSlide slide = null;
+        for (int i = 0; i < slideContainer.size(); i++) {
+            slide = slideContainer.get(i);
+            String header = slide.getHeader();
+            if (s.equals(header)) {
+                return slide;
+            }
+        }
+        return slide;
+    }
 }
