@@ -216,6 +216,6 @@ public class MainView extends UI {
     private void updateStorageBackupSlide(Communicator parsedTSV) {
         // TODO implement this out
         StorageBackupSlide storageBackupSlide = (StorageBackupSlide) UserSlideList.getUserSlide("Storage and Backup");
-        storageBackupSlide.getArchieveSolution().setValue(parsedTSV.getSpecies());
+        storageBackupSlide.setStartValues(parsedTSV.getQsampleType());
     }
 }

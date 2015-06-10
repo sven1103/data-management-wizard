@@ -1,5 +1,7 @@
 package com.userSlides;
 
+import com.vaadin.data.Property;
+import com.vaadin.event.FieldEvents;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Sizeable;
 import com.vaadin.shared.ui.combobox.FilteringMode;
@@ -14,17 +16,36 @@ public class StorageBackupSlide extends AUserSlide {
 
     private Label headerText;
     private Label subHeader;
-    private Label peptidesSpace;
+
+    private Label peptidesSpaceLabel;
+    private Label dnaSpaceLabel;
+    private TextField peptidesSpaceField;
+    private TextField dnaSpaceField;
+    private Label totalSpace;
+    private Label requiredSpace;
+
     private TextField storageLocation;
     private ComboBox backupSolution;
     private ComboBox archieveSolution;
     private Panel info;
 
+    private double totSpace;
+    private double reqSpace;
+    private int totExpDna;
+    private int totExpPeptides;
+    private HashMap<String, Double> raidMap;
+
     // TODO add getter and setter
     private HashMap<String, Integer> expMap;
+    private String reference;
 
     public StorageBackupSlide(String header) {
         super(header);
+        this.totExpDna = 0;
+        this.totExpPeptides = 0;
+        this.totSpace = 0;
+        this.reqSpace = 0;
+        initHashMapRef();
     }
 
     @Override
@@ -36,16 +57,20 @@ public class StorageBackupSlide extends AUserSlide {
 
         VerticalLayout roleType = new VerticalLayout();
         roleType.addComponents(this.backupSolution);
-        roleType.addComponent(peptidesSpace);
+        roleType.addComponent(peptidesSpaceLabel);
+        roleType.addComponent(dnaSpaceLabel);
+        VerticalLayout space = new VerticalLayout();
+        space.addComponents(this.archieveSolution, this.peptidesSpaceField, this.dnaSpaceField);
         HorizontalLayout typeSelection = new HorizontalLayout();
-        typeSelection.addComponents(roleType, this.archieveSolution);
+        typeSelection.addComponents(roleType, space);
         typeSelection.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
         typeSelection.setSpacing(true);
-
         VerticalLayout layout = new VerticalLayout();
 
         layout.addComponent(typeSelection);
         layout.setSpacing(true);
+        layout.addComponent(totalSpace);
+        layout.addComponent(requiredSpace);
 
         content.addComponent(layout);
         content.addComponent(info);
@@ -95,9 +120,24 @@ public class StorageBackupSlide extends AUserSlide {
 
         // Disallow null selections
         backupSolution.setNullSelectionAllowed(false);
+        backupSolution.addValueChangeListener(new Property.ValueChangeListener() {
+            @Override
+            public void valueChange(Property.ValueChangeEvent event) {
+                // Assuming that the value type is a String
+                String value = (String) event.getProperty().getValue();
+
+                // Do something with the value
+                Integer dna = Integer.parseInt(dnaSpaceField.getValue());
+                Integer peptides = Integer.parseInt(peptidesSpaceField.getValue());
+                totSpace = totExpDna*dna + totExpPeptides*peptides;
+                totalSpace.setValue("Total space in GB needed: " + totSpace);
+                reqSpace = calcReqSpace();
+                requiredSpace.setValue("Required space for storage/backup chosen RAID solution in GB: " + reqSpace);
+            }
+        });
 
         archieveSolution = new ComboBox("Select your archieve solution.");
-        archieveSolution.setInputPrompt("No backup solution.");
+        archieveSolution.setInputPrompt("No archieve solution.");
         archieveSolution.setInvalidAllowed(false);
         archieveSolution.setNullSelectionAllowed(false);
         archieveSolution.addItem("TAPE");
@@ -121,8 +161,66 @@ public class StorageBackupSlide extends AUserSlide {
         info.setWidth(300.0f, Sizeable.Unit.PIXELS);
         info.setContent(infoContent());
 
-        peptidesSpace = new Label("PEPTIDES Space");
-        peptidesSpace.setValue("Approximate space needed for one PEPTIDES experiment: 20GB.");
+        peptidesSpaceLabel = new Label("PEPTIDES Space");
+        peptidesSpaceLabel.setValue("Approximate disk space in GB needed for one PEPTIDES experiment:");
+        dnaSpaceLabel = new Label("DNA Space");
+        dnaSpaceLabel.setValue("Approximate disk space in GB needed for one DNA experiment:");
+
+        peptidesSpaceField = new TextField("PEPTIDES Space");
+        peptidesSpaceField.setImmediate(true);
+        peptidesSpaceField.setValue("20");
+        peptidesSpaceField.addValueChangeListener(new Property.ValueChangeListener() {
+            @Override
+            public void valueChange(Property.ValueChangeEvent event) {
+                // Assuming that the value type is a String
+                String value = (String) event.getProperty().getValue();
+
+                // Do something with the value
+                Integer dna = Integer.parseInt(dnaSpaceField.getValue());
+                Integer peptides = Integer.parseInt(value);
+                totSpace = totExpDna*dna + totExpPeptides*peptides;
+                totalSpace.setValue("Total space in GB needed: " + totSpace);
+                reqSpace = calcReqSpace();
+                requiredSpace.setValue("Required space for storage/backup chosen RAID solution in GB: " + reqSpace);
+            }
+        });
+        dnaSpaceField = new TextField("DNA Space");
+        dnaSpaceField.setImmediate(true);
+        dnaSpaceField.setValue("500");
+        dnaSpaceField.addTextChangeListener(new FieldEvents.TextChangeListener() {
+            @Override
+            public void textChange(FieldEvents.TextChangeEvent event) {
+                // Assuming that the value type is a String
+                String value = (String) event.getText();
+
+                if (!value.isEmpty()) {
+                    // Do something with the value
+                    Integer peptides = Integer.parseInt(peptidesSpaceField.getValue());
+                    Integer dna = Integer.parseInt(value);
+                    totSpace = totExpDna*dna + totExpPeptides*peptides;
+                    totalSpace.setValue("Total space in GB needed: " + totSpace);
+                    reqSpace = calcReqSpace();
+                    requiredSpace.setValue("Required space for storage/backup chosen RAID solution in GB: " + reqSpace);
+                }
+            }
+        });
+
+        totalSpace = new Label("Total Space");
+        totalSpace.setValue("Total space in GB needed: " + this.totSpace);
+        requiredSpace = new Label("Required Space");
+        requiredSpace.setValue("Required space in GB: " + this.reqSpace);
+    }
+
+    private double calcReqSpace() {
+        String raid = "";
+        if (!this.backupSolution.isEmpty()) {
+            raid = (String) this.backupSolution.getValue();
+        }
+        double factor = 0.0;
+        if (this.raidMap.containsKey(raid)) {
+            factor = this.raidMap.get(raid);
+        }
+        return totSpace + totSpace*factor;
     }
 
     Component infoContent(){
@@ -136,6 +234,30 @@ public class StorageBackupSlide extends AUserSlide {
         );
         layout.addComponent(content);
         return layout;
+    }
+
+    private void initHashMapRef() {
+        HashMap<String, Integer> hM = new HashMap<String, Integer>();
+        hM.put("DNA", 10);
+        hM.put("PEPTIDES", 10);
+        this.expMap = hM;
+        this.reference = "Homo sapiens";
+        HashMap<String, Double> hMM = new HashMap<String, Double>();
+        hMM.put("RAID 1", 1.0);
+        hMM.put("RAID 5", 0.125);
+        hMM.put("RAID 6", 0.33);
+        hMM.put("RAID 10", 1.0);
+        this.raidMap = hMM;
+    }
+
+    public void setStartValues(HashMap<String, Integer> expMap) {
+        this.expMap = expMap;
+        this.totExpDna = expMap.get("DNA");
+        this.totExpPeptides = expMap.get("PEPTIDES");
+        this.totSpace = this.totExpDna*500 + this.totExpPeptides*20;
+        this.reqSpace = calcReqSpace();
+        totalSpace.setValue("Total space in GB needed: " + totSpace);
+        requiredSpace.setValue("Required space for storage/backup chosen RAID solution in GB: " + reqSpace);
     }
 
     public Label getHeaderText() {
