@@ -4,10 +4,7 @@ package IO;
 import org.apache.xpath.SourceTree;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by neukamm on 5/26/15.
@@ -124,7 +121,8 @@ public class TSVParser {
         // set species 
         this.communicator.setSpecies(getSpeciesByID(this.communicator.getNcbiOrganismID()));
         // set Q sample type
-        this.communicator.setQsampleType(deleteDuplicates(Arrays.asList(this.tsvContentTransposed[10])));
+        // TODO change method to generateHashMap
+        this.communicator.setQsampleType(generateHashMap(Arrays.asList(this.tsvContentTransposed[10])));
         // set externamDB id
         this.communicator.setExternalDB_ID(Arrays.asList(this.tsvContentTransposed[11]));
         // set condition treatment
@@ -180,10 +178,26 @@ public class TSVParser {
         }
 
         return noDublicates;
-
     }
 
-
+    /**
+     *
+     * @param expLis
+     * @return HashMap with Experiment_Type:Num
+     */
+    private HashMap<String, Integer> generateHashMap(List<String> expLis) {
+        HashMap<String, Integer> hM = new HashMap<String, Integer>();
+        for (String exp : expLis) {
+            // we already saw the experiment type
+            if (hM.containsKey(exp)) {
+                hM.put(exp, hM.get(exp) + 1);
+                // we did not see the experiment type
+            } else {
+                hM.put(exp, 1);
+            }
+        }
+        return hM;
+    }
 
     /**
      * This method runs the command line program "curl" to get 
