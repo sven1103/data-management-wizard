@@ -3,6 +3,7 @@ package IO;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -24,7 +25,7 @@ public class Communicator {
     private List<String> parent;
     private List<String> externalDB_ID;
     private List<String> conditionTissue;
-    private List<String> qsampleType;
+    private HashMap<String, Integer> qsampleType;
     private String species;
 
 
@@ -156,11 +157,11 @@ public class Communicator {
         this.conditionTissue = conditionTissue;
     }
 
-    public List<String> getQsampleType() {
+    public HashMap<String, Integer> getQsampleType() {
         return qsampleType;
     }
 
-    public void setQsampleType(List<String> qsampleType) {
+    public void setQsampleType(HashMap<String, Integer> qsampleType) {
         this.qsampleType = qsampleType;
     }
 

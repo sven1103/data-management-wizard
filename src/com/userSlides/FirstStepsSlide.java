@@ -72,6 +72,7 @@ public class FirstStepsSlide extends AUserSlide {
         this.personInCharge = new TextField("Person in Charge");
         this.personInCharge.setMaxLength(50);
         this.personInCharge.setWidth(350.0f, Sizeable.Unit.PIXELS);
+        this.personInCharge.setValue("Sepp Platter");
 
         // Upload
         this.tsvContent = new TsvUpload();
