@@ -22,6 +22,7 @@ public class DisseminationMethods extends AUserSlide {
     private Button removeDataType;
     private ComboBox dataTypes;
     private TextArea dataTypeDescription;
+    private Button popupButton;
 
     private Table selection;
     private Panel info;
@@ -41,14 +42,17 @@ public class DisseminationMethods extends AUserSlide {
 
         HorizontalLayout content = new HorizontalLayout();
 
+        VerticalLayout dissMethod = new VerticalLayout();
+        dissMethod.addComponents(this.dataTypes, this.popupButton);
         HorizontalLayout typeSelection = new HorizontalLayout();
-        typeSelection.addComponents(this.dataTypes, this.dataTypeDescription);
+        typeSelection.addComponents(dissMethod, this.dataTypeDescription);
         typeSelection.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
         typeSelection.setSpacing(true);
 
         VerticalLayout layout = new VerticalLayout();
 
         layout.addComponent(typeSelection);
+        layout.addComponent(popupButton);
         layout.addComponent(this.addDataType);
         layout.addComponent(this.selection);
         layout.addComponent(this.removeDataType);
@@ -80,12 +84,13 @@ public class DisseminationMethods extends AUserSlide {
         this.headerText = new Label(this.header);
         this.headerText.addStyleName("h2");
 
-        this.subHeader = new Label("Provide some general information for your data management plan");
+        this.subHeader = new Label("Provide some information " +
+                "for your data management plan concerning the sharing and access rules of your data.");
         this.subHeader.addStyleName("colored");
         this.subHeader.addStyleName("small");
 
 
-        selection = new Table("Already Selected.");
+        selection = new Table("Already chosen methods.");
         // Define two columns for the built-in container
         selection.addContainerProperty("Method", String.class, null);
         selection.addContainerProperty("Description", String.class, null);
@@ -104,8 +109,8 @@ public class DisseminationMethods extends AUserSlide {
                         Notification.Type.TRAY_NOTIFICATION);
             }
         });
-        selection.addItem(new Object[]{"Fappening", "Perverse Stuff...."}, 2);
-        selection.addItem(new Object[]{"Sepp", "Platter"}, 3);
+//        selection.addItem(new Object[]{"Fappening", "Perverse Stuff...."}, 2);
+//        selection.addItem(new Object[]{"Sepp", "Platter"}, 3);
 
         addDataType = new Button("Add Method");
         addDataType.addStyleName("friendly");
@@ -147,7 +152,6 @@ public class DisseminationMethods extends AUserSlide {
         dataTypes.addItem("Journal");
         dataTypes.addItem("Web");
         dataTypes.addItem("Media");
-        dataTypes.addItem("Others...");
         // Sets the icon to use with the items
         // dataTypes.setItemIconPropertyId(ExampleUtil.iso3166_PROPERTY_FLAG);
         // Set full width
@@ -159,6 +163,16 @@ public class DisseminationMethods extends AUserSlide {
 
         // Disallow null selections
         dataTypes.setNullSelectionAllowed(false);
+
+        popupButton = new Button("Add unfamiliar method.");
+        popupButton.addClickListener(new Button.ClickListener() {
+            public void buttonClick(Button.ClickEvent event) {
+                DisseminationMethodsSub sub = new DisseminationMethodsSub(dataTypes);
+
+                // Add it to the root component
+                UI.getCurrent().addWindow(sub);
+            }
+        });
 
         dataTypeDescription = new TextArea("Description");
         dataTypeDescription.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
@@ -186,7 +200,8 @@ public class DisseminationMethods extends AUserSlide {
         layout.setMargin(true);
         layout.setSpacing(true);
         Label content = new Label(
-                "Spiel nicht an deinem Pillermann sonst geht er an die Eier ran."
+                "Determining the data dissemination clearyfies for every scientits when, where and how " +
+                        "scientific data can be shared."
         );
         layout.addComponent(content);
         return layout;
