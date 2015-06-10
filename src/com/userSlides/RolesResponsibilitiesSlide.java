@@ -1,11 +1,9 @@
 package com.userSlides;
 
-import com.TsvUpload;
 import com.vaadin.data.Property;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Sizeable;
 import com.vaadin.shared.ui.combobox.FilteringMode;
-import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 
 import java.util.Set;
@@ -21,6 +19,7 @@ public class RolesResponsibilitiesSlide extends AUserSlide {
     private Button removeDataType;
     private ComboBox dataTypes;
     private TextArea dataTypeDescription;
+    private Button popupButton;
 
     private Table selection;
     private Panel info;
@@ -36,14 +35,17 @@ public class RolesResponsibilitiesSlide extends AUserSlide {
 
         HorizontalLayout content = new HorizontalLayout();
 
+        VerticalLayout roleType = new VerticalLayout();
+        roleType.addComponents(this.dataTypes, this.popupButton);
         HorizontalLayout typeSelection = new HorizontalLayout();
-        typeSelection.addComponents(this.dataTypes, this.dataTypeDescription);
+        typeSelection.addComponents(roleType, this.dataTypeDescription);
         typeSelection.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
         typeSelection.setSpacing(true);
 
         VerticalLayout layout = new VerticalLayout();
 
         layout.addComponent(typeSelection);
+        layout.addComponent(popupButton);
         layout.addComponent(this.addDataType);
         layout.addComponent(this.selection);
         layout.addComponent(this.removeDataType);
@@ -64,6 +66,7 @@ public class RolesResponsibilitiesSlide extends AUserSlide {
 
     @Override
     protected void configureComponents() {
+
         // configure Components
 
         this.headerText = new Label(this.header);
@@ -74,7 +77,7 @@ public class RolesResponsibilitiesSlide extends AUserSlide {
         this.subHeader.addStyleName("small");
 
 
-        selection = new Table("Already Selected.");
+        selection = new Table("Already chosen responsibilities.");
         // Define two columns for the built-in container
         selection.addContainerProperty("Role_Type", String.class, null);
         selection.addContainerProperty("Person_In_Charge", String.class, null);
@@ -93,10 +96,10 @@ public class RolesResponsibilitiesSlide extends AUserSlide {
                         Notification.Type.TRAY_NOTIFICATION);
             }
         });
-        selection.addItem(new Object[]{"Fappening", "Perverse Stuff...."}, 2);
-        selection.addItem(new Object[]{"Sepp", "Platter"}, 3);
+//        selection.addItem(new Object[]{"Fappening", "Perverse Stuff...."}, 2);
+//        selection.addItem(new Object[]{"Sepp", "Platter"}, 3);
 
-        addDataType = new Button("Add Role");
+        addDataType = new Button("Add Responsibility");
         addDataType.addStyleName("friendly");
         addDataType.addClickListener(new Button.ClickListener() {
             @Override
@@ -114,7 +117,7 @@ public class RolesResponsibilitiesSlide extends AUserSlide {
             }
         });
 
-        removeDataType = new Button("Delete Role(s)");
+        removeDataType = new Button("Delete Responsibility");
         removeDataType.addStyleName("danger");
         removeDataType.addClickListener(new Button.ClickListener() {
             @Override
@@ -148,6 +151,16 @@ public class RolesResponsibilitiesSlide extends AUserSlide {
         // Disallow null selections
         dataTypes.setNullSelectionAllowed(false);
 
+        popupButton = new Button("Add unfamiliar role.");
+        popupButton.addClickListener(new Button.ClickListener() {
+            public void buttonClick(Button.ClickEvent event) {
+                RolesResponsibilitiesSub sub = new RolesResponsibilitiesSub(dataTypes);
+
+                // Add it to the root component
+                UI.getCurrent().addWindow(sub);
+            }
+        });
+
         dataTypeDescription = new TextArea("Person In Charge.");
         dataTypeDescription.setWidth(100.0f, Sizeable.Unit.PERCENTAGE);
 
@@ -165,13 +178,9 @@ public class RolesResponsibilitiesSlide extends AUserSlide {
         layout.setMargin(true);
         layout.setSpacing(true);
         Label content = new Label(
-          "For data management, one has to assign roles to certain team members or " +
-                  "collaborators, which regulates distinct <strong>responsibilities</strong> " +
-                  "and <strong>functions</strong> " +
-                  "in the project. <br>" +
-                  "You can also create new roles, if you need it. Just choose <code>others</code> " +
-                  "and name our own role."
-        , ContentMode.HTML);
+          "Scientists being aware of their roles & responsibilities" +
+                  " maintain an efficient and productive working environment for everyone."
+        );
         layout.addComponent(content);
         return layout;
     }
