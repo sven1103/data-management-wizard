@@ -179,12 +179,13 @@ public class MainView extends UI {
                         System.out.println("Also gloaden hoats");
                         System.out.println("Number I:" + parsedTSV.getNumberOfIndividuals());
                         System.out.println(Integer.toString(MainView.parsedTSV.getNcbiOrganismID()));
-                    } catch (IOException ex){
+                        // TODO add function that adds necessery information for storage & backup slide
+                    } catch (IOException ex) {
                         System.out.println("Hmmmm, error");
                         parsedTSV = null;
                     }
                 } else{
-                    System.out.println("whatt?");
+                    System.out.println("what what in the butt?");
                 }
                 progressBars.removeAllComponents();
                 nav.removeAllComponents();
