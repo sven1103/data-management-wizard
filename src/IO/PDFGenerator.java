@@ -5,6 +5,7 @@ package IO;
 import java.io.FileOutputStream;
 import java.util.Date;
 
+import com.UserSlideList;
 import com.itextpdf.text.Anchor;
 
 import com.itextpdf.text.BaseColor;
@@ -27,8 +28,8 @@ import com.itextpdf.text.pdf.PdfPTable;
 
 
 import com.itextpdf.text.pdf.PdfWriter;
-
-
+import com.userSlides.AUserSlide;
+import com.userSlides.FirstStepsSlide;
 
 
 public class PDFGenerator {
@@ -40,11 +41,6 @@ public class PDFGenerator {
     private Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
     private Font italicFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLDITALIC);
 
-//    private ProjectInformation information;
-//
-//    public PDFGenerator(ProjectInformation information){
-//        this.information = information;
-//    }
 
 
     public PDFGenerator(){
@@ -75,7 +71,7 @@ public class PDFGenerator {
             document.newPage();
 
             // adding all chapters
-            addGeneralProjectInformation(document, 1);
+            addGeneralProjectInformation(document, 1,  (FirstStepsSlide) UserSlideList.getUserSlide("General Information"));
 
             addRolesAndResponsibilities(document, 2);
 
@@ -360,7 +356,9 @@ public class PDFGenerator {
 
     }
 
-    private void addGeneralProjectInformation(Document document, int chapterNumber) throws DocumentException {
+    private void addGeneralProjectInformation(Document document, int chapterNumber, FirstStepsSlide slide) throws DocumentException {
+
+
         Anchor anchor = new Anchor("General project information", catFont);
         anchor.setName("information");
 

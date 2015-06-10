@@ -207,4 +207,92 @@ public class DisseminationMethods extends AUserSlide {
 
     @Override
     public void refreshComponents(){}
+
+    public Label getHeaderText() {
+        return headerText;
+    }
+
+    public void setHeaderText(Label headerText) {
+        this.headerText = headerText;
+    }
+
+    public Label getSubHeader() {
+        return subHeader;
+    }
+
+    public void setSubHeader(Label subHeader) {
+        this.subHeader = subHeader;
+    }
+
+    public Button getAddDataType() {
+        return addDataType;
+    }
+
+    public void setAddDataType(Button addDataType) {
+        this.addDataType = addDataType;
+    }
+
+    public Button getRemoveDataType() {
+        return removeDataType;
+    }
+
+    public void setRemoveDataType(Button removeDataType) {
+        this.removeDataType = removeDataType;
+    }
+
+    public ComboBox getDataTypes() {
+        return dataTypes;
+    }
+
+    public void setDataTypes(ComboBox dataTypes) {
+        this.dataTypes = dataTypes;
+    }
+
+    public TextArea getDataTypeDescription() {
+        return dataTypeDescription;
+    }
+
+    public void setDataTypeDescription(TextArea dataTypeDescription) {
+        this.dataTypeDescription = dataTypeDescription;
+    }
+
+    public Table getSelection() {
+        return selection;
+    }
+
+    public void setSelection(Table selection) {
+        this.selection = selection;
+    }
+
+    public Panel getInfo() {
+        return info;
+    }
+
+    public void setInfo(Panel info) {
+        this.info = info;
+    }
+
+    public Button getGenerateReportButton() {
+        return generateReportButton;
+    }
+
+    public void setGenerateReportButton(Button generateReportButton) {
+        this.generateReportButton = generateReportButton;
+    }
+
+    public VerticalLayout getRightSideContainer() {
+        return rightSideContainer;
+    }
+
+    public void setRightSideContainer(VerticalLayout rightSideContainer) {
+        this.rightSideContainer = rightSideContainer;
+    }
+
+    public static PDFGenerator getPdfGenerator() {
+        return pdfGenerator;
+    }
+
+    public static void setPdfGenerator(PDFGenerator pdfGenerator) {
+        DisseminationMethods.pdfGenerator = pdfGenerator;
+    }
 }

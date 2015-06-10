@@ -190,4 +190,76 @@ public class DocContManagementSlide extends AUserSlide {
 
     @Override
     public void refreshComponents(){}
+
+    public Label getHeaderText() {
+        return headerText;
+    }
+
+    public void setHeaderText(Label headerText) {
+        this.headerText = headerText;
+    }
+
+    public Label getSubHeader() {
+        return subHeader;
+    }
+
+    public void setSubHeader(Label subHeader) {
+        this.subHeader = subHeader;
+    }
+
+    public Button getAddDataType() {
+        return addDataType;
+    }
+
+    public void setAddDataType(Button addDataType) {
+        this.addDataType = addDataType;
+    }
+
+    public Button getRemoveDataType() {
+        return removeDataType;
+    }
+
+    public void setRemoveDataType(Button removeDataType) {
+        this.removeDataType = removeDataType;
+    }
+
+    public ComboBox getDataTypes() {
+        return dataTypes;
+    }
+
+    public void setDataTypes(ComboBox dataTypes) {
+        this.dataTypes = dataTypes;
+    }
+
+    public TextArea getDataTypeDescription() {
+        return dataTypeDescription;
+    }
+
+    public void setDataTypeDescription(TextArea dataTypeDescription) {
+        this.dataTypeDescription = dataTypeDescription;
+    }
+
+    public Button getPopupButton() {
+        return popupButton;
+    }
+
+    public void setPopupButton(Button popupButton) {
+        this.popupButton = popupButton;
+    }
+
+    public Table getSelection() {
+        return selection;
+    }
+
+    public void setSelection(Table selection) {
+        this.selection = selection;
+    }
+
+    public Panel getInfo() {
+        return info;
+    }
+
+    public void setInfo(Panel info) {
+        this.info = info;
+    }
 }

@@ -62,4 +62,20 @@ public class SecondStepsSlide extends AUserSlide {
     public String getTsvUpload(){
         return "";
     }
+
+    public Button getButton() {
+        return button;
+    }
+
+    public void setButton(Button button) {
+        this.button = button;
+    }
+
+    public TextField getSamplePlace() {
+        return samplePlace;
+    }
+
+    public void setSamplePlace(TextField samplePlace) {
+        this.samplePlace = samplePlace;
+    }
 }
