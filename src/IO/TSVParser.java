@@ -151,7 +151,7 @@ public class TSVParser {
             String[] namesSplitted2 = names[i].split("-");
             String name2 = namesSplitted2[0];
             if (!name2.equals(name)){
-                communicator.setNumberOfIndividuals(Integer.parseInt(names[i-1].split("-")[1]));
+                communicator.setNumberOfIndividuals(Integer.parseInt(names[i - 1].split("-")[1]));
                 break;
             }
         }
@@ -186,6 +186,17 @@ public class TSVParser {
      */
     private HashMap<String, Integer> generateHashMap(List<String> expLis) {
         HashMap<String, Integer> hM = new HashMap<String, Integer>();
+        for(int i = 1; i < expLis.size(); i++){
+            String exp = expLis.get(i);
+            // we already saw the experiment type
+            if (hM.containsKey(exp)) {
+                hM.put(exp, hM.get(exp) + 1);
+                // we did not see the experiment type
+            } else {
+                hM.put(exp, 1);
+            }
+        }
+        /*
         for (String exp : expLis) {
             // we already saw the experiment type
             if (hM.containsKey(exp)) {
@@ -195,6 +206,7 @@ public class TSVParser {
                 hM.put(exp, 1);
             }
         }
+        */
         return hM;
     }
 
