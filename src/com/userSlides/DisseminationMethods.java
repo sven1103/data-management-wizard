@@ -31,6 +31,7 @@ public class DisseminationMethods extends AUserSlide {
     private ComboBox dataTypes;
     private TextArea dataTypeDescription;
     private Button popupButton;
+    private Button downloadReportButton;
 
     private Table selection;
     private Panel info;
@@ -67,7 +68,7 @@ public class DisseminationMethods extends AUserSlide {
         layout.setSpacing(true);
 
         rightSideContainer = new VerticalLayout();
-        rightSideContainer.addComponents(info, generateReportButton);
+        rightSideContainer.addComponents(info, generateReportButton, downloadReportButton);
         content.addComponent(layout);
         content.addComponent(rightSideContainer);
         content.setSpacing(true);
@@ -198,8 +199,12 @@ public class DisseminationMethods extends AUserSlide {
             @Override
             public void buttonClick(Button.ClickEvent clickEvent) {
                 pdfGenerator.writePDF();
+                downloadReportButton.setEnabled(true);
             }
         });
+
+        downloadReportButton = new Button("Download Report");
+        downloadReportButton.setEnabled(false);
 
         StreamResource myResource = null;
         try {
@@ -208,7 +213,7 @@ public class DisseminationMethods extends AUserSlide {
             e.printStackTrace();
         }
         FileDownloader fileDownloader = new FileDownloader(myResource);
-        fileDownloader.extend(generateReportButton);
+        fileDownloader.extend(downloadReportButton);
     }
 
     Component infoContent(){
