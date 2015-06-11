@@ -111,6 +111,7 @@ public class RolesResponsibilitiesSlide extends AUserSlide {
                     sB.append(dataType);
                     sB.append(description);
                     selection.addItem(new Object[]{dataType, description}, sB.toString().hashCode());
+                    dataTypeDescription.setValue("");
                 }
             }
         });

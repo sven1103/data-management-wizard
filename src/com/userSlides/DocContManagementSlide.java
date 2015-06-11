@@ -112,6 +112,7 @@ public class DocContManagementSlide extends AUserSlide {
                     sB.append(datatype);
                     sB.append(descriptio);
                     selection.addItem(new Object[]{datatype, descriptio}, sB.toString().hashCode());
+                    dataTypeDescription.setValue("");
                 }
             }
         });
