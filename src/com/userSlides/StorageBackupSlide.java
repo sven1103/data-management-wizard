@@ -171,16 +171,16 @@ public class StorageBackupSlide extends AUserSlide {
         peptidesSpaceField = new TextField("PEPTIDES Space");
         peptidesSpaceField.setImmediate(true);
         peptidesSpaceField.setValue("20");
-        peptidesSpaceField.addValueChangeListener(new Property.ValueChangeListener() {
+        peptidesSpaceField.addTextChangeListener(new FieldEvents.TextChangeListener() {
             @Override
-            public void valueChange(Property.ValueChangeEvent event) {
+            public void textChange(FieldEvents.TextChangeEvent event) {
                 // Assuming that the value type is a String
-                String value = (String) event.getProperty().getValue();
+                String value = (String) event.getText();
 
                 // Do something with the value
                 Integer dna = Integer.parseInt(dnaSpaceField.getValue());
                 Integer peptides = Integer.parseInt(value);
-                totSpace = totExpDna*dna + totExpPeptides*peptides;
+                totSpace = totExpDna * dna + totExpPeptides * peptides;
                 totalSpace.setValue("Total space in GB needed: " + totSpace);
                 reqSpace = calcReqSpace();
                 requiredSpace.setValue("Required space for storage/backup chosen RAID solution in GB: " + reqSpace);
