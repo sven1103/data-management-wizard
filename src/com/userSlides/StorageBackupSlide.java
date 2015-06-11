@@ -19,10 +19,12 @@ public class StorageBackupSlide extends AUserSlide {
 
     private Label peptidesSpaceLabel;
     private Label dnaSpaceLabel;
+
     private TextField peptidesSpaceField;
     private TextField dnaSpaceField;
     private Label totalSpace;
     private Label requiredSpace;
+
 
     private TextField storageLocation;
     private ComboBox backupSolution;
@@ -136,8 +138,8 @@ public class StorageBackupSlide extends AUserSlide {
             }
         });
 
-        archieveSolution = new ComboBox("Select your archieve solution.");
-        archieveSolution.setInputPrompt("No archieve solution.");
+        archieveSolution = new ComboBox("Select your archive solution.");
+        archieveSolution.setInputPrompt("No archive solution.");
         archieveSolution.setInvalidAllowed(false);
         archieveSolution.setNullSelectionAllowed(false);
         archieveSolution.addItem("TAPE");
@@ -276,6 +278,62 @@ public class StorageBackupSlide extends AUserSlide {
         this.subHeader = subHeader;
     }
 
+    public Label getPeptidesSpaceLabel() {
+        return peptidesSpaceLabel;
+    }
+
+    public void setPeptidesSpaceLabel(Label peptidesSpaceLabel) {
+        this.peptidesSpaceLabel = peptidesSpaceLabel;
+    }
+
+    public Label getDnaSpaceLabel() {
+        return dnaSpaceLabel;
+    }
+
+    public void setDnaSpaceLabel(Label dnaSpaceLabel) {
+        this.dnaSpaceLabel = dnaSpaceLabel;
+    }
+
+    public TextField getPeptidesSpaceField() {
+        return peptidesSpaceField;
+    }
+
+    public void setPeptidesSpaceField(TextField peptidesSpaceField) {
+        this.peptidesSpaceField = peptidesSpaceField;
+    }
+
+    public TextField getDnaSpaceField() {
+        return dnaSpaceField;
+    }
+
+    public void setDnaSpaceField(TextField dnaSpaceField) {
+        this.dnaSpaceField = dnaSpaceField;
+    }
+
+    public Label getTotalSpace() {
+        return totalSpace;
+    }
+
+    public void setTotalSpace(Label totalSpace) {
+        this.totalSpace = totalSpace;
+    }
+
+    public Label getRequiredSpace() {
+        return requiredSpace;
+    }
+
+    public void setRequiredSpace(Label requiredSpace) {
+        this.requiredSpace = requiredSpace;
+    }
+
+    public TextField getStorageLocation() {
+        return storageLocation;
+    }
+
+    public void setStorageLocation(TextField storageLocation) {
+        this.storageLocation = storageLocation;
+    }
+
     public ComboBox getBackupSolution() {
         return backupSolution;
     }
@@ -298,6 +356,62 @@ public class StorageBackupSlide extends AUserSlide {
 
     public void setInfo(Panel info) {
         this.info = info;
+    }
+
+    public double getTotSpace() {
+        return totSpace;
+    }
+
+    public void setTotSpace(double totSpace) {
+        this.totSpace = totSpace;
+    }
+
+    public double getReqSpace() {
+        return reqSpace;
+    }
+
+    public void setReqSpace(double reqSpace) {
+        this.reqSpace = reqSpace;
+    }
+
+    public int getTotExpDna() {
+        return totExpDna;
+    }
+
+    public void setTotExpDna(int totExpDna) {
+        this.totExpDna = totExpDna;
+    }
+
+    public int getTotExpPeptides() {
+        return totExpPeptides;
+    }
+
+    public void setTotExpPeptides(int totExpPeptides) {
+        this.totExpPeptides = totExpPeptides;
+    }
+
+    public HashMap<String, Double> getRaidMap() {
+        return raidMap;
+    }
+
+    public void setRaidMap(HashMap<String, Double> raidMap) {
+        this.raidMap = raidMap;
+    }
+
+    public HashMap<String, Integer> getExpMap() {
+        return expMap;
+    }
+
+    public void setExpMap(HashMap<String, Integer> expMap) {
+        this.expMap = expMap;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     @Override
