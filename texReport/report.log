@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Arch Linux) (preloaded format=pdflatex 2015.5.29)  11 JUN 2015 21:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Arch Linux) (preloaded format=pdflatex 2015.6.1)  11 JUN 2015 22:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -887,7 +887,10 @@ LaTeX Warning: Float too large for page by 25.4347pt on input line 42.
 
 [5 <./pictures/GeneralInformation.png>] [6 <./pictures/RolesResponsibilities.pn
 g>] [7 <./pictures/ContentManagement.png>] [8 <./pictures/StorageBackup.png>]
-[9 <./pictures/Dissemination.png>]) (./discussion.tex) (./outlook.tex)
+[9 <./pictures/Dissemination.png>]) (./discussion.tex) (./outlook.tex [10
+
+
+])
 (./report.bbl
 Underfull \hbox (badness 1502) in paragraph at lines 21--25
 []\T1/futs/m/n/12 (+20) MASSACHUSETTS IN-STI-TUTE OF TECH-NOL-OGY.  Data Man-ag
@@ -896,10 +899,7 @@ e-ment.  []$\T1/cmtt/m/n/12 http :
 
 )
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 104.
- [10
-
-
-]
+ [11]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 104.
  (./report.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 104.
@@ -909,11 +909,11 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 104.
  ) 
 Here is how much of TeX's memory you used:
- 12091 strings out of 493109
- 184796 string characters out of 6140856
+ 12128 strings out of 493109
+ 185152 string characters out of 6140857
  365244 words of memory out of 5000000
  15106 multiletter control sequences out of 15000+600000
- 103055 words of font info for 223 fonts, out of 8000000 for 9000
+ 105485 words of font info for 250 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  39i,11n,47p,857b,389s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/t
@@ -922,10 +922,10 @@ ea/charter/bchb8a.pfb></usr/share/texmf-dist/fonts/type1/adobe/utopia/putr8a.pf
 b></usr/share/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/share/texmf
 -dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/share/texmf-dist/fonts/typ
 e1/public/cm-super/sftt1200.pfb>
-Output written on report.pdf (10 pages, 369652 bytes).
+Output written on report.pdf (11 pages, 373305 bytes).
 PDF statistics:
- 162 PDF objects out of 1000 (max. 8388607)
- 133 compressed objects within 2 object streams
- 33 named destinations out of 1000 (max. 500000)
+ 166 PDF objects out of 1000 (max. 8388607)
+ 136 compressed objects within 2 object streams
+ 34 named destinations out of 1000 (max. 500000)
  38498 words of extra memory for PDF output out of 42996 (max. 10000000)
 
