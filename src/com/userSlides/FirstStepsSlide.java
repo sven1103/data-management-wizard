@@ -21,6 +21,7 @@ public class FirstStepsSlide extends AUserSlide {
     private String uploadedStuff = "";
     private Label spacer;
     private Label uploadInfo;
+    private TextArea genInfo;
 
     public FirstStepsSlide(String header) {
         super(header);
@@ -40,7 +41,7 @@ public class FirstStepsSlide extends AUserSlide {
         layout.setMargin(true);
         layout.setSpacing(true);
 
-        content.addComponents(layout, this.contact);
+        content.addComponents(layout, this.contact, this.genInfo);
         content.setComponentAlignment(layout, Alignment.TOP_LEFT);
 
         main.addComponents(this.headerText, this.subHeader, content);
@@ -126,7 +127,11 @@ public class FirstStepsSlide extends AUserSlide {
         this.contact.addComponents(institute, street, cityCode, country);
         this.contact.addStyleName("wrapping");
 
+        this.genInfo = new TextArea("General Project Description");
+    }
 
+    public TextArea getGenInfo() {
+        return genInfo;
     }
 
     @Override
