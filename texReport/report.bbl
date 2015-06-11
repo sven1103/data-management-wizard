@@ -1,7 +1,26 @@
 \begin{thebibliography}{1}
 
+\bibitem{qwizard}
+Andreas Friedrich, Erhan Kenar, Oliver Kohlbacher, and Sven Nahnsen.
+\newblock Intuitive web-based experimental design for high-throughput
+  biomedical data.
+\newblock {\em BioMed Res Int}, 2015:958302, 2015.
+
+\bibitem{DAMAInternational:2009:DGD:1593444}
+DAMA International.
+\newblock {\em The DAMA Guide to the Data Management Body of Knowledge -
+  DAMA-DMBOK}.
+\newblock Technics Publications, LLC, USA, 2009.
+
 \bibitem{lecture}
 Sven Nahnsen.
-\newblock Lecture notes in data management in quantitative biology, April 2015.
+\newblock 'lecture notes in data management in quantitative biology', April
+  2015.
+
+\bibitem{planWhy}
+MASSACHUSETTS INSTITUTE~OF TECHNOLOGY.
+\newblock {Data Management}.
+\newblock \url{http://libraries.mit.edu/data-management/plan/why/}.
+\newblock [Online; accessed 11-June-2015].
 
 \end{thebibliography}
