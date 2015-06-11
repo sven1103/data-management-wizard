@@ -3,44 +3,47 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: report.aux
 The style file: plain.bst
 Database file #1: cites.bib
-You've used 1 entry,
+Warning--empty journal in 1
+Warning--empty year in 1
+You've used 2 entries,
             2118 wiz_defined-function locations,
-            502 strings with 4092 characters,
-and the built_in function-call counts, 219 in all, are:
-= -- 17
-> -- 7
+            505 strings with 4185 characters,
+and the built_in function-call counts, 444 in all, are:
+= -- 37
+> -- 14
 < -- 0
-+ -- 3
-- -- 2
-* -- 10
-:= -- 41
-add.period$ -- 2
-call.type$ -- 1
-change.case$ -- 4
++ -- 6
+- -- 4
+* -- 24
+:= -- 81
+add.period$ -- 5
+call.type$ -- 2
+change.case$ -- 8
 chr.to.int$ -- 0
-cite$ -- 1
-duplicate$ -- 7
-empty$ -- 23
-format.name$ -- 2
-if$ -- 44
+cite$ -- 4
+duplicate$ -- 18
+empty$ -- 43
+format.name$ -- 4
+if$ -- 88
 int.to.chr$ -- 0
-int.to.str$ -- 1
-missing$ -- 0
-newline$ -- 7
-num.names$ -- 2
-pop$ -- 9
+int.to.str$ -- 2
+missing$ -- 1
+newline$ -- 12
+num.names$ -- 4
+pop$ -- 15
 preamble$ -- 1
-purify$ -- 3
+purify$ -- 6
 quote$ -- 0
-skip$ -- 8
+skip$ -- 14
 stack$ -- 0
-substring$ -- 5
+substring$ -- 13
 swap$ -- 1
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 4
-warning$ -- 0
-while$ -- 2
-width$ -- 2
-write$ -- 10
+type$ -- 8
+warning$ -- 2
+while$ -- 5
+width$ -- 3
+write$ -- 19
+(There were 2 warnings)

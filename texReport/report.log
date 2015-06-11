@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Arch Linux) (preloaded format=pdflatex 2015.5.4)  11 JUN 2015 13:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Arch Linux) (preloaded format=pdflatex 2015.5.29)  11 JUN 2015 15:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -38,11 +38,11 @@ Package tocbasic Info: omitting babel extension for `lof'
 Package tocbasic Info: omitting babel extension for `lot'
 (tocbasic)             because of feature `nobabel' available
 (tocbasic)             for `lot' on input line 118.
-Class scrartcl Info: File `scrsize11pt.clo' used to setup font sizes on input l
+Class scrartcl Info: File `scrsize12pt.clo' used to setup font sizes on input l
 ine 1564.
 
-(/usr/share/texmf-dist/tex/latex/koma-script/scrsize11pt.clo
-File: scrsize11pt.clo 2015/02/07 v3.16 KOMA-Script font size class option (11pt
+(/usr/share/texmf-dist/tex/latex/koma-script/scrsize12pt.clo
+File: scrsize12pt.clo 2015/02/07 v3.16 KOMA-Script font size class option (12pt
 )
 )
 (/usr/share/texmf-dist/tex/latex/koma-script/typearea.sty
@@ -59,21 +59,21 @@ Package typearea, 2015/02/07 v3.16 KOMA-Script package (type area)
 \ta@temp=\skip44
 \footheight=\skip45
 Package typearea Info: These are the values describing the layout:
-(typearea)             DIV  = 10
+(typearea)             DIV  = 12
 (typearea)             BCOR = 0.0pt
 (typearea)             \paperwidth      = 597.50793pt
-(typearea)              \textwidth      = 418.25555pt
+(typearea)              \textwidth      = 448.13095pt
 (typearea)              DIV departure   = -6%
-(typearea)              \evensidemargin = 17.3562pt
-(typearea)              \oddsidemargin  = 17.3562pt
+(typearea)              \evensidemargin = 2.4185pt
+(typearea)              \oddsidemargin  = 2.4185pt
 (typearea)             \paperheight     = 845.04694pt
-(typearea)              \textheight     = 595.80026pt
-(typearea)              \topmargin      = -25.16531pt
-(typearea)              \headheight     = 17.0pt
-(typearea)              \headsep        = 20.40001pt
-(typearea)              \topskip        = 11.0pt
-(typearea)              \footskip       = 47.6pt
-(typearea)              \baselineskip   = 13.6pt
+(typearea)              \textheight     = 635.5pt
+(typearea)              \topmargin      = -41.72441pt
+(typearea)              \headheight     = 18.125pt
+(typearea)              \headsep        = 21.75pt
+(typearea)              \topskip        = 12.0pt
+(typearea)              \footskip       = 50.75pt
+(typearea)              \baselineskip   = 14.5pt
 (typearea)              on input line 1342.
 )
 \c@part=\count80
@@ -656,17 +656,17 @@ LaTeX Font Info:    Try loading font information for FML+futmi on input line 86
 File: fmlfutmi.fd 2004/10/30 Fontinst v1.926 font definitions for FML/futmi.
 )
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 13.24796pt on input line 86.
+(Font)              scaled to size 15.89755pt on input line 86.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 9.19998pt on input line 86.
+(Font)              scaled to size 11.03998pt on input line 86.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 7.35999pt on input line 86.
+(Font)              scaled to size 8.27998pt on input line 86.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 13.24796pt on input line 86.
+(Font)              scaled to size 15.89755pt on input line 86.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 9.19998pt on input line 86.
+(Font)              scaled to size 11.03998pt on input line 86.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 7.35999pt on input line 86.
+(Font)              scaled to size 8.27998pt on input line 86.
 LaTeX Font Info:    Try loading font information for U+msa on input line 86.
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -697,24 +697,16 @@ Class scrartcl Warning: Usage of deprecated font command `\bf'!
 (scrartcl)              But for now, KOMA-Script will replace deprecated `\bf'
 (scrartcl)              by `\normalfont \bfseries ' on input line 89.
 
-LaTeX Font Info:    Font shape `T1/futs/bx/n' in size <10.95> not available
+LaTeX Font Info:    Font shape `T1/futs/bx/n' in size <12> not available
 (Font)              Font shape `T1/futs/b/n' tried instead on input line 89.
 [1
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./motivation.tex
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 10.07397pt on input line 3.
-LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 7.63599pt on input line 3.
-LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 5.51999pt on input line 3.
+(Font)              scaled to size 6.43999pt on input line 3.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 10.07397pt on input line 3.
-LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 7.63599pt on input line 3.
-LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 5.51999pt on input line 3.
+(Font)              scaled to size 6.43999pt on input line 3.
 LaTeX Font Info:    Try loading font information for T1+cmtt on input line 7.
 
 (/usr/share/texmf-dist/tex/latex/base/t1cmtt.fd
@@ -725,9 +717,9 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 ) (./qwizard.tex
-Overfull \hbox (30.93619pt too wide) in paragraph at lines 3--1
-\T1/futs/m/n/10.95 (-20) - nice pic-ture of re-search data life cy-cle: $\T1/cm
-tt/m/n/10.95 http : / / data . library . virginia . edu / data-[]management/$
+Overfull \hbox (42.74615pt too wide) in paragraph at lines 3--1
+\T1/futs/m/n/12 (-20) - nice pic-ture of re-search data life cy-cle: $\T1/cmtt/
+m/n/12 http : / / data . library . virginia . edu / data-[]management/$
  []
 
 
@@ -735,27 +727,40 @@ Underfull \hbox (badness 10000) in paragraph at lines 3--1
 
  []
 
-) (./systemArchitecture.tex) (./dmpcreator.tex) (./discussion.tex)
-(./outlook.tex) [2] (./report.bbl) [3] (./report.aux) ) 
+) (./systemArchitecture.tex
+LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
+(Font)              scaled to size 9.19998pt on input line 3.
+LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
+(Font)              scaled to size 6.99199pt on input line 3.
+LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
+(Font)              scaled to size 5.51999pt on input line 3.
+LaTeX Font Info:    Font shape `U/futm/m/n' will be
+(Font)              scaled to size 9.19998pt on input line 3.
+LaTeX Font Info:    Font shape `U/futm/m/n' will be
+(Font)              scaled to size 6.99199pt on input line 3.
+LaTeX Font Info:    Font shape `U/futm/m/n' will be
+(Font)              scaled to size 5.51999pt on input line 3.
+ [2]) (./dmpcreator.tex) (./discussion.tex)
+(./outlook.tex) [3] (./report.bbl) [4] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 8381 strings out of 493109
- 127698 string characters out of 6140857
- 278538 words of memory out of 5000000
- 11608 multiletter control sequences out of 15000+600000
- 72076 words of font info for 109 fonts, out of 8000000 for 9000
+ 8486 strings out of 493109
+ 128908 string characters out of 6140856
+ 282571 words of memory out of 5000000
+ 11634 multiletter control sequences out of 15000+600000
+ 97577 words of font info for 172 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 47i,11n,47p,330b,269s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 47i,11n,47p,585b,268s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/f
 onts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texmf-dist/fonts/enc/dvips/
 base/8r.enc}</usr/share/texmf-dist/fonts/type1/bitstrea/charter/bchb8a.pfb></us
 r/share/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/share/texmf-
 dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/share/texmf-dist/fonts/type1/ado
-be/utopia/putr8a.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sftt109
-5.pfb>
-Output written on report.pdf (3 pages, 68157 bytes).
+be/utopia/putr8a.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sftt120
+0.pfb>
+Output written on report.pdf (4 pages, 74537 bytes).
 PDF statistics:
- 36 PDF objects out of 1000 (max. 8388607)
- 25 compressed objects within 1 object stream
+ 39 PDF objects out of 1000 (max. 8388607)
+ 27 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 16897 words of extra memory for PDF output out of 17280 (max. 10000000)
+ 36353 words of extra memory for PDF output out of 42996 (max. 10000000)
 
