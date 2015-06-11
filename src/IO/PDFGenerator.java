@@ -270,7 +270,7 @@ public class PDFGenerator {
         Chapter catPart = new Chapter(new Paragraph(anchor), chapterNumber);
         addEmptyLine(catPart, 2);
         catPart.add(new Paragraph("Overview about used data types with additional description."));
-
+        addEmptyLine(catPart, 2);
         // create table in pdf
         PdfPTable table = new PdfPTable(2);
 
@@ -336,7 +336,7 @@ public class PDFGenerator {
         subCatPart.add(new Paragraph("Approximate disk space in GB needed for one DNA experiment: "
                 + slide.getDnaSpaceField().getValue()));
 
-        addEmptyLine(subCatPart, 3);
+        addEmptyLine(subCatPart, 2);
 
         subCatPart.add(new Paragraph("Total space in GB needed: " + slide.getTotalSpace().getValue() ));
         subCatPart.add(new Paragraph("Required space in GB: " + slide.getRequiredSpace().getValue() ));
