@@ -24,8 +24,11 @@ import java.io.IOException;
 public class MainView extends UI {
 
     Navigator navigator;
-    public static String progressStatus;
-    public static Communicator parsedTSV = null;
+
+
+
+    private static String progressStatus;
+    private static Communicator parsedTSV = null;
     private AUserSlide currentSlide = new FirstStepsSlide("gogog");
 
     @DesignRoot
@@ -218,4 +221,11 @@ public class MainView extends UI {
         StorageBackupSlide storageBackupSlide = (StorageBackupSlide) UserSlideList.getUserSlide("Storage and Backup");
         storageBackupSlide.setStartValues(parsedTSV.getQsampleType());
     }
+
+    public static Communicator getParsedTSV() {
+        return parsedTSV;
+    }
+
+
+
 }
