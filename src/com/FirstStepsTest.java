@@ -3,12 +3,19 @@ package com;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.data.Property;
+import com.vaadin.server.FileDownloader;
+import com.vaadin.server.StreamResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Set;
 
 @Title("FirstStepsTest")
@@ -19,66 +26,25 @@ import java.util.Set;
  */
 public class FirstStepsTest extends UI {
 
-    protected Button addDataType;
-    protected Button removeDataType;
+    protected Button saveBtn;
     protected ComboBox dataTypes;
     protected TextArea dataTypeDescription;
 
-    protected Table selection;
-
     @Override
     public void init(VaadinRequest request) {
+        Button downloadButton = new Button("Download image");
+
+        StreamResource myResource = null;
+        try {
+            myResource = createResource();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        FileDownloader fileDownloader = new FileDownloader(myResource);
+        fileDownloader.extend(downloadButton);
 
 
         // configure Components
-        selection = new Table("Already Selected.");
-        // Define two columns for the built-in container
-        selection.addContainerProperty("Role_Type", String.class, null);
-        selection.addContainerProperty("Person_In_Charge",  String.class, null);
-        // Allow selecting items from the table.
-        selection.setSelectable(true);
-        // Send changes in selection immediately to server.
-        selection.setImmediate(true);
-        selection.setMultiSelect(true);
-        // Handle selection change.
-        selection.addValueChangeListener(new Property.ValueChangeListener() {
-            @Override
-            public void valueChange(Property.ValueChangeEvent event) {
-                Notification.show("Selected: " + selection.getValue(),
-                        Notification.Type.TRAY_NOTIFICATION);
-            }
-        });
-        selection.addItem(new Object[]{"Fappening", "Perverse Stuff...."}, 2);
-        selection.addItem(new Object[]{"Sepp", "Platter"}, 3);
-
-        addDataType = new Button("+");
-        addDataType.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent clickEvent) {
-                if (!dataTypes.isEmpty()) {
-                    Notification.show(dataTypes.getValue().toString(),
-                            Notification.Type.TRAY_NOTIFICATION);
-                    String dataType = dataTypes.getValue().toString();
-                    String description = dataTypeDescription.getValue().toString();
-                    StringBuilder sB = new StringBuilder();
-                    sB.append(dataType);
-                    sB.append(description);
-                    selection.addItem(new Object[]{dataType, description}, sB.toString().hashCode());
-                }
-            }
-        });
-
-        removeDataType = new Button("-");
-        removeDataType.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent clickEvent) {
-                // get the current selected rows as a set
-                Set<Integer> selectedVals = (Set<Integer>) selection.getValue();
-                for (Integer itemId : selectedVals) {
-                    selection.removeItem(itemId);
-                }
-            }
-        });
 
         // Creates a new combobox using an existing container
         dataTypes = new ComboBox("Select your role type.");
@@ -103,15 +69,41 @@ public class FirstStepsTest extends UI {
 
         dataTypeDescription = new TextArea("Person In Charge.");
 
+
         // buildLayout
         HorizontalLayout horizontalLayout = new HorizontalLayout();
-        horizontalLayout.addComponents(this.addDataType, this.dataTypes, this.dataTypeDescription);
+        horizontalLayout.addComponents(this.dataTypes, this.dataTypeDescription);
         VerticalLayout layout = new VerticalLayout();
         layout.addComponent(horizontalLayout);
-        layout.addComponent(this.selection);
-        layout.addComponent(this.removeDataType);
+        layout.addComponent(downloadButton);
         setContent(layout);
 
+
+    }
+
+    private StreamResource createResource() throws IOException {
+        return new StreamResource(new StreamResource.StreamSource() {
+            @Override
+            public InputStream getStream() {
+                String pathToFile = "/opt/wildfly/bin/FirstPdfTest.pdf";
+                byte[] pdf = null;
+                try {
+                    pdf = Files.readAllBytes(Paths.get(pathToFile));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    //  write here to stream
+                    bos.write(pdf);
+                    return new ByteArrayInputStream(bos.toByteArray());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+
+            }
+        }, "DataManagementPlan.pdf");
     }
 
 }

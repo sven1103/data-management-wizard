@@ -2,13 +2,21 @@ package com.userSlides;
 
 import com.TsvUpload;
 import com.vaadin.data.Property;
+import com.vaadin.server.FileDownloader;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Sizeable;
+import com.vaadin.server.StreamResource;
 import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import IO.PDFGenerator;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Set;
 
 /**
@@ -192,6 +200,15 @@ public class DisseminationMethods extends AUserSlide {
                 pdfGenerator.writePDF();
             }
         });
+
+        StreamResource myResource = null;
+        try {
+            myResource = createResource();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        FileDownloader fileDownloader = new FileDownloader(myResource);
+        fileDownloader.extend(generateReportButton);
     }
 
     Component infoContent(){
@@ -213,6 +230,31 @@ public class DisseminationMethods extends AUserSlide {
         generateReportButton.addStyleName("primary");
         generateReportButton.setIcon(FontAwesome.ARCHIVE);
         return generateReportButton;
+    }
+
+    private StreamResource createResource() throws IOException {
+        return new StreamResource(new StreamResource.StreamSource() {
+            @Override
+            public InputStream getStream() {
+                String pathToFile = "/opt/wildfly/bin/FirstPdfTest.pdf";
+                byte[] pdf = null;
+                try {
+                    pdf = Files.readAllBytes(Paths.get(pathToFile));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    //  write here to stream
+                    bos.write(pdf);
+                    return new ByteArrayInputStream(bos.toByteArray());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+
+            }
+        }, "DataManagementPlan.pdf");
     }
 
     @Override
